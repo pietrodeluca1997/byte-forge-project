@@ -11,11 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\private\ILogOutput.h" />
-    <ClInclude Include="include\public\WindowsVisualStudioLogOutput.h" />
+    <ClInclude Include="include\public\ConsoleLogOutput.h" />
+    <ClInclude Include="include\public\EConsoleLogColors.h" />
+    <ClInclude Include="include\public\ELogLevels.h" />
+    <ClInclude Include="include\public\LogManager.h" />
+    <ClInclude Include="include\public\ILogOutput.h" />
+    <ClInclude Include="include\public\WindowsVisualStudioDebugLogOutput.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\WindowsVisualStudioLogOutput.cpp" />
+    <ClCompile Include="source\ConsoleLogOutput.cpp" />
+    <ClCompile Include="source\EConsoleLogColors.cpp" />
+    <ClCompile Include="source\ELogLevels.cpp" />
+    <ClCompile Include="source\LogManager.cpp" />
+    <ClCompile Include="source\WindowsVisualStudioDebugLogOutput.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

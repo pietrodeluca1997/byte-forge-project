@@ -7,18 +7,60 @@
     <Filter Include="Private">
       <UniqueIdentifier>{a2d3aa2d-3ed8-4138-bbc3-fbc3c798c421}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Public\LogOutputs">
+      <UniqueIdentifier>{dec7046f-85bb-4bdd-9916-afd07fda7ccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\LogOutputs">
+      <UniqueIdentifier>{7a4983ed-3959-4f5a-a21a-12f93e7a2279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\LogManagers">
+      <UniqueIdentifier>{ee0c678d-33a3-4bd6-8d2d-82ea260ecb5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\LogManagers">
+      <UniqueIdentifier>{53b53d5f-f14e-499f-a7cd-4439677462e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public\Enums">
+      <UniqueIdentifier>{850ba057-34af-4024-b7b5-106ab22b0d6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private\Enums">
+      <UniqueIdentifier>{df1f44da-b46f-4b9e-96b2-86f22136050c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\private\ILogOutput.h">
-      <Filter>Private</Filter>
+    <ClInclude Include="include\public\ILogOutput.h">
+      <Filter>Public\LogOutputs</Filter>
     </ClInclude>
-    <ClInclude Include="include\public\WindowsVisualStudioLogOutput.h">
-      <Filter>Private</Filter>
+    <ClInclude Include="include\public\WindowsVisualStudioDebugLogOutput.h">
+      <Filter>Public\LogOutputs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\public\ConsoleLogOutput.h">
+      <Filter>Public\LogOutputs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\public\LogManager.h">
+      <Filter>Public\LogManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\public\EConsoleLogColors.h">
+      <Filter>Public\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\public\ELogLevels.h">
+      <Filter>Public\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\WindowsVisualStudioLogOutput.cpp">
-      <Filter>Private</Filter>
+    <ClCompile Include="source\WindowsVisualStudioDebugLogOutput.cpp">
+      <Filter>Private\LogOutputs</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ConsoleLogOutput.cpp">
+      <Filter>Private\LogOutputs</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LogManager.cpp">
+      <Filter>Private\LogManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EConsoleLogColors.cpp">
+      <Filter>Private\Enums</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ELogLevels.cpp">
+      <Filter>Private\Enums</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

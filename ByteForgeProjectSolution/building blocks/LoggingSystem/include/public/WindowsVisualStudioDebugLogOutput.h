@@ -7,10 +7,10 @@
 
 namespace ByteForgeEngine::LoggingSystem
 {
-	class WindowsVisualStudioLogOutput : public ILogOutput
+	class WindowsVisualStudioDebugLogOutput : public ILogOutput
 	{
 	public:
-		virtual void Log(const char* format, ...) override;
+		virtual void Log(const char* format, va_list args) override;
 	};
 }
 
