@@ -8,4 +8,17 @@
       <UniqueIdentifier>{a2d3aa2d-3ed8-4138-bbc3-fbc3c798c421}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\private\ILogOutput.h">
+      <Filter>Private</Filter>
+    </ClInclude>
+    <ClInclude Include="include\public\WindowsVisualStudioLogOutput.h">
+      <Filter>Private</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\WindowsVisualStudioLogOutput.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

@@ -24,9 +24,11 @@
   <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="..\..\..\resources\Test Applications Output Configuration.props" />
+    <Import Project="..\..\..\resources\C++20 Language Version.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="..\..\..\resources\Test Applications Output Configuration.props" />
+    <Import Project="..\..\..\resources\C++20 Language Version.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup />
@@ -39,6 +41,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>$(SolutionDir)building blocks\LoggingSystem\include\private;$(SolutionDir)building blocks\LoggingSystem\include\public</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -62,15 +65,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LoggerManagerTests.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\NewFolder1{A2A9DF95-4CED-48FE-8C54-DCC40F9451CD}">
-      <Project>{a2a9df95-4ced-48fe-8c54-dcc40f9451cd}</Project>
-    </ProjectReference>
+    <ClCompile Include="LogManagerTests.cpp" />
+    <ClCompile Include="LogOutputTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\LoggingSystem\LoggingSystem.vcxproj">
+      <Project>{d4f292af-cc26-4e84-a479-c9a99a61beec}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

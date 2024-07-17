@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
 
-TEST(LoggerManagerTests, EqualityCheck) {
+TEST(LogManagerTests, EqualityCheck) {
   EXPECT_EQ(1, 1);
 }
