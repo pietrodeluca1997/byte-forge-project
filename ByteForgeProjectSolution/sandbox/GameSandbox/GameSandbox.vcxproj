@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -11,42 +11,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\public\formatters\ConsoleLogFormatter.h" />
-    <ClInclude Include="include\public\formatters\ILogFormatter.h" />
-    <ClInclude Include="include\public\models\LogEntryProperties.h" />
-    <ClInclude Include="include\public\outputs\ConsoleLogOutput.h" />
-    <ClInclude Include="include\public\enums\EConsoleLogColors.h" />
-    <ClInclude Include="include\public\enums\ELogLevels.h" />
-    <ClInclude Include="include\public\managers\LogManager.h" />
-    <ClInclude Include="include\public\outputs\ILogOutput.h" />
-    <ClInclude Include="include\public\queues\LogQueue.h" />
-    <ClInclude Include="include\public\outputs\WindowsVisualStudioDebugLogOutput.h" />
+    <ClCompile Include="GameSandbox.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\formatters\ConsoleLogFormatter.cpp" />
-    <ClCompile Include="source\outputs\ConsoleLogOutput.cpp" />
-    <ClCompile Include="source\enums\EConsoleLogColors.cpp" />
-    <ClCompile Include="source\enums\ELogLevels.cpp" />
-    <ClCompile Include="source\managers\LogManager.cpp" />
-    <ClCompile Include="source\queues\LogQueue.cpp" />
-    <ClCompile Include="source\outputs\WindowsVisualStudioDebugLogOutput.cpp" />
+    <ProjectReference Include="..\..\building blocks\LoggingSystem\LoggingSystem.vcxproj">
+      <Project>{d4f292af-cc26-4e84-a479-c9a99a61beec}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{d4f292af-cc26-4e84-a479-c9a99a61beec}</ProjectGuid>
-    <RootNamespace>LoggingSystem</RootNamespace>
+    <ProjectGuid>{3642f29e-a483-412d-bf45-76c55ed7149a}</ProjectGuid>
+    <RootNamespace>GameSandbox</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -60,13 +47,13 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\..\resources\C++20 Language Version.props" />
-    <Import Project="..\..\..\resources\Default Output Configuration.props" />
+    <Import Project="..\..\..\resources\Sandbox Applications Output Configuration.props" />
     <Import Project="..\..\..\resources\Default Header Include Configuration.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\..\resources\C++20 Language Version.props" />
-    <Import Project="..\..\..\resources\Default Output Configuration.props" />
+    <Import Project="..\..\..\resources\Sandbox Applications Output Configuration.props" />
     <Import Project="..\..\..\resources\Default Header Include Configuration.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -74,15 +61,15 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)building blocks\LoggingSystem\include\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\Debug - x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>LoggingSystem.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -91,14 +78,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>

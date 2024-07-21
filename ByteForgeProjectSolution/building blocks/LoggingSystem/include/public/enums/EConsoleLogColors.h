@@ -3,6 +3,10 @@
 
 #include <string>
 #include <unordered_map>
+#include <enums/ELogLevels.h>
+
+using std::unordered_map;
+using std::string;
 
 namespace ByteForgeEngine::LoggingSystem {
     enum class EConsoleLogColors {
@@ -14,8 +18,9 @@ namespace ByteForgeEngine::LoggingSystem {
         RedBackground = 5
     };
 
-    extern const std::unordered_map<EConsoleLogColors, std::string> LogColorStringMap;
-    extern const std::unordered_map<EConsoleLogColors, std::string> AnsiConsoleColorMap;
+    extern const unordered_map<EConsoleLogColors, string> LogColorStringMap;
+    extern const unordered_map<EConsoleLogColors, string> AnsiConsoleColorMap;
+    extern const unordered_map<ELogLevels, EConsoleLogColors> LogLevelConsoleColorMap;
 }
 
 #endif // E_CONSOLE_LOG_COLORS_H

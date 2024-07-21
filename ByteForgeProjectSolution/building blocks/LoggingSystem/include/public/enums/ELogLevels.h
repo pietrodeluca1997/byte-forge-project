@@ -4,6 +4,9 @@
 #include <unordered_map>
 #include <string>
 
+using std::unordered_map;
+using std::string;
+
 namespace ByteForgeEngine::LoggingSystem {
 	enum class ELogLevels {
 		Trace = 0,
@@ -15,7 +18,7 @@ namespace ByteForgeEngine::LoggingSystem {
 		Fatal = 6
 	};
 
-	extern const std::unordered_map<ELogLevels, std::string> LogLevelStringMap;
+	extern const unordered_map<ELogLevels, string> LogLevelStringMap;	
 }
 
 #endif // E_LOG_LEVELS_H
