@@ -11,20 +11,42 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sandbox", "sandbox", "{BF25
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameSandbox", "sandbox\GameSandbox\GameSandbox.vcxproj", "{3642F29E-A483-412D-BF45-76C55ED7149A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine editor", "engine editor", "{F1D50C01-A5A4-4BBD-97E3-8C5F34AC6ED8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineEditor", "engine editor\EngineEditor\EngineEditor.csproj", "{D6B52964-0928-4861-8E45-92176F402C19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4F292AF-CC26-4E84-A479-C9A99A61BEEC}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{D4F292AF-CC26-4E84-A479-C9A99A61BEEC}.Debug|Any CPU.Build.0 = Debug|x64
 		{D4F292AF-CC26-4E84-A479-C9A99A61BEEC}.Debug|x64.ActiveCfg = Debug|x64
 		{D4F292AF-CC26-4E84-A479-C9A99A61BEEC}.Debug|x64.Build.0 = Debug|x64
+		{D4F292AF-CC26-4E84-A479-C9A99A61BEEC}.Release|Any CPU.ActiveCfg = Release|x64
+		{D4F292AF-CC26-4E84-A479-C9A99A61BEEC}.Release|Any CPU.Build.0 = Release|x64
 		{D4F292AF-CC26-4E84-A479-C9A99A61BEEC}.Release|x64.ActiveCfg = Release|x64
 		{D4F292AF-CC26-4E84-A479-C9A99A61BEEC}.Release|x64.Build.0 = Release|x64
+		{3642F29E-A483-412D-BF45-76C55ED7149A}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{3642F29E-A483-412D-BF45-76C55ED7149A}.Debug|Any CPU.Build.0 = Debug|x64
 		{3642F29E-A483-412D-BF45-76C55ED7149A}.Debug|x64.ActiveCfg = Debug|x64
 		{3642F29E-A483-412D-BF45-76C55ED7149A}.Debug|x64.Build.0 = Debug|x64
+		{3642F29E-A483-412D-BF45-76C55ED7149A}.Release|Any CPU.ActiveCfg = Release|x64
+		{3642F29E-A483-412D-BF45-76C55ED7149A}.Release|Any CPU.Build.0 = Release|x64
 		{3642F29E-A483-412D-BF45-76C55ED7149A}.Release|x64.ActiveCfg = Release|x64
 		{3642F29E-A483-412D-BF45-76C55ED7149A}.Release|x64.Build.0 = Release|x64
+		{D6B52964-0928-4861-8E45-92176F402C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6B52964-0928-4861-8E45-92176F402C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6B52964-0928-4861-8E45-92176F402C19}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D6B52964-0928-4861-8E45-92176F402C19}.Debug|x64.Build.0 = Debug|Any CPU
+		{D6B52964-0928-4861-8E45-92176F402C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6B52964-0928-4861-8E45-92176F402C19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6B52964-0928-4861-8E45-92176F402C19}.Release|x64.ActiveCfg = Release|Any CPU
+		{D6B52964-0928-4861-8E45-92176F402C19}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +54,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D4F292AF-CC26-4E84-A479-C9A99A61BEEC} = {A2A9DF95-4CED-48FE-8C54-DCC40F9451CD}
 		{3642F29E-A483-412D-BF45-76C55ED7149A} = {BF258914-996B-4AC2-8466-28E6E700B8E2}
+		{D6B52964-0928-4861-8E45-92176F402C19} = {F1D50C01-A5A4-4BBD-97E3-8C5F34AC6ED8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {273B7F7F-8F83-437B-BA94-CF042D1AB7FB}
