@@ -23,12 +23,15 @@ bool MultimediaLayer::Initialize()
         return false;
     };
 
+    SDL_DisplayMode displayMode;
+    SDL_GetCurrentDisplayMode(0, &displayMode);
+
     window = SDL_CreateWindow(
         NULL,
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        1024,
-        768,
+        displayMode.w,
+        displayMode.h,
         SDL_WINDOW_BORDERLESS);
 
     if (!window)
@@ -37,13 +40,15 @@ bool MultimediaLayer::Initialize()
         return false;
     }
 
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     if (!renderer)
     {
         std::cerr << "Error creating SDL renderer" << std::endl;
         return false;
     }
+
+    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
     return true;
 }
