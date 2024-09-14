@@ -13,5 +13,6 @@ public:
 
     bool Initialize();
     void ProcessInput();
+    void Draw();
     bool IsApplicationExitRequested() { return isApplicationExitRequested; }
 };

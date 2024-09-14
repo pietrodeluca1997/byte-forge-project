@@ -23,6 +23,7 @@ void Application::Run()
     while (!multimediaLayer.IsApplicationExitRequested())
     {
         multimediaLayer.ProcessInput();
+        multimediaLayer.Draw();
     }
 }
 
