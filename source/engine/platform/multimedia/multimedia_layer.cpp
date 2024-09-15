@@ -3,6 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include <glm.hpp>
 #include <iostream>
+#include <coresystems/logger/logger.hpp>
 
 MultimediaLayer::MultimediaLayer() : isApplicationExitRequested(false)
 {
@@ -32,11 +33,11 @@ const uint32_t MultimediaLayer::GetFrametime()
 
 bool MultimediaLayer::Initialize()
 {
-    std::cout << "Multimedia layer initializing!" << std::endl;
+    Logger::Info("Multimedia layer initializing!");
 
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
-        std::cerr << "Error initializing SDL" << std::endl;
+        Logger::Fatal("Error initializing SDL");
         return false;
     };
 
@@ -53,7 +54,7 @@ bool MultimediaLayer::Initialize()
 
     if (!window)
     {
-        std::cerr << "Error creating SDL window" << std::endl;
+        Logger::Fatal("Error creating SDL window");
         return false;
     }
 
@@ -61,7 +62,7 @@ bool MultimediaLayer::Initialize()
 
     if (!renderer)
     {
-        std::cerr << "Error creating SDL renderer" << std::endl;
+        Logger::Fatal("Error creating SDL renderer");
         return false;
     }
 

@@ -1,19 +1,20 @@
 #include "application.hpp"
 #include <iostream>
+#include <coresystems/logger/logger.hpp>
 
 Application::Application()
 {
-    std::cout << "Application constructor called!" << std::endl;
+    Logger::Debug("Application constructor called!");
 }
 
 Application::~Application()
 {
-    std::cout << "Application destructor called!" << std::endl;
+    Logger::Debug("Application destructor called!");
 }
 
 void Application::Initialize()
 {
-    std::cout << "Application initializing!" << std::endl;
+    Logger::Info("Application initializing!");
 
     multimediaLayer.Initialize();
 }

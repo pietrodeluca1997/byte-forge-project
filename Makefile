@@ -19,6 +19,7 @@ LIBS = \
 SRC = \
     source/*.cpp \
     source/engine/coresystems/application/*.cpp \
+    source/engine/coresystems/logger/*.cpp \
     source/engine/platform/multimedia/*.cpp
 
 build: 
