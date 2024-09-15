@@ -15,15 +15,15 @@ LIBS = \
     -lSDL2main \
     -lSDL2_image \
     -llua54
-
 SRC = \
     source/*.cpp \
     source/engine/coresystems/application/*.cpp \
     source/engine/coresystems/logger/*.cpp \
     source/engine/platform/multimedia/*.cpp
+OBJNAME = byteforgeproject
 
 build: 
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LIBDIRS) $(SRC) -o byteforgeproject.exe $(LIBS)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LIBDIRS) $(SRC) -o $(OBJNAME).exe $(LIBS)
 	
 clean:
-	del byteforgeproject.exe
+	del $(OBJNAME).exe
