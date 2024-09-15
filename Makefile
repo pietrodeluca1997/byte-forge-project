@@ -13,6 +13,7 @@ LIBDIRS = \
 LIBS = \
     -lSDL2 \
     -lSDL2main \
+    -lSDL2_image \
     -llua54
 
 SRC = \
