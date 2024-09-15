@@ -1,6 +1,5 @@
 #include "application.hpp"
 #include <iostream>
-#include <SDL2/SDL_timer.h>
 
 Application::Application()
 {

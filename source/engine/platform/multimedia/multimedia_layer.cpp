@@ -17,7 +17,12 @@ MultimediaLayer::~MultimediaLayer()
 
 void MultimediaLayer::WaitForNextFrametime(const uint32_t previousFrameMilliseconds, const uint32_t desiredFrametime)
 {
-    while(!SDL_TICKS_PASSED(GetFrametime(), previousFrameMilliseconds + desiredFrametime));
+    uint32_t timeToWait = desiredFrametime - (GetFrametime() - previousFrameMilliseconds);
+
+    if(timeToWait > 0 && timeToWait <= desiredFrametime)
+    {
+        SDL_Delay(timeToWait);
+    }
 }
 
 const uint32_t MultimediaLayer::GetFrametime()
