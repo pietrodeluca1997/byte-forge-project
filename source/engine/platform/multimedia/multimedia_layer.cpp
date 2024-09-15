@@ -15,6 +15,16 @@ MultimediaLayer::~MultimediaLayer()
     SDL_Quit();
 }
 
+void MultimediaLayer::WaitForNextFrametime(const uint32_t previousFrameMilliseconds, const uint32_t desiredFrametime)
+{
+    while(!SDL_TICKS_PASSED(GetFrametime(), previousFrameMilliseconds + desiredFrametime));
+}
+
+const uint32_t MultimediaLayer::GetFrametime()
+{
+    return SDL_GetTicks();
+}
+
 bool MultimediaLayer::Initialize()
 {
     std::cout << "Multimedia layer initializing!" << std::endl;

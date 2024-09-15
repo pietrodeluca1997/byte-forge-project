@@ -1,5 +1,6 @@
 #include "application.hpp"
 #include <iostream>
+#include <SDL2/SDL_timer.h>
 
 Application::Application()
 {
@@ -18,11 +19,18 @@ void Application::Initialize()
     multimediaLayer.Initialize();
 }
 
+void Application::FixedUpdate()
+{
+    multimediaLayer.WaitForNextFrametime(previousFrameMilliseconds, MILLISECONDS_PER_FRAME);
+    previousFrameMilliseconds = multimediaLayer.GetFrametime();
+}
+
 void Application::Run()
 {
     while (!multimediaLayer.IsApplicationExitRequested())
     {
         multimediaLayer.ProcessInput();
+        FixedUpdate();
         multimediaLayer.Draw();
     }
 }
