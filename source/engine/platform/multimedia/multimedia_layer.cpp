@@ -1,5 +1,7 @@
 #include "multimedia_layer.hpp"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <glm.hpp>
 #include <iostream>
 
 MultimediaLayer::MultimediaLayer() : isApplicationExitRequested(false)
@@ -75,7 +77,7 @@ void MultimediaLayer::ProcessInput()
 
 void MultimediaLayer::Draw()
 {
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
     SDL_RenderClear(renderer);
 
     SDL_RenderPresent(renderer);
