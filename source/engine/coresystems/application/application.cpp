@@ -21,6 +21,9 @@ void Application::Initialize()
 void Application::FixedUpdate()
 {
     multimediaLayer.WaitForNextFrametime(previousFrameMilliseconds, MILLISECONDS_PER_FRAME);
+
+    double deltaTime = (multimediaLayer.GetFrametime() - previousFrameMilliseconds) / 1000.0;
+
     previousFrameMilliseconds = multimediaLayer.GetFrametime();
 }
 
