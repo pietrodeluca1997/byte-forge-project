@@ -3,7 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include <glm.hpp>
 #include <iostream>
-#include <coresystems/logger/logger.hpp>
+#include <core_systems/logger/logger.hpp>
 
 MultimediaLayer::MultimediaLayer() : isApplicationExitRequested(false)
 {

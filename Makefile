@@ -17,9 +17,11 @@ LIBS = \
     -llua54
 SRC = \
     source/*.cpp \
-    source/engine/coresystems/application/*.cpp \
-    source/engine/coresystems/logger/*.cpp \
-    source/engine/platform/multimedia/*.cpp
+    source/engine/core_systems/application/*.cpp \
+    source/engine/core_systems/logger/*.cpp \
+    source/engine/platform/multimedia/*.cpp \
+    source/engine/gameplay_foundations/ecs/systems/*.cpp 
+    
 OBJNAME = byteforgeproject
 
 build: 
