@@ -4,34 +4,34 @@
 
 class IObjectPool 
 {
-public:
-    virtual ~IObjectPool() {}
+    public:
+        virtual ~IObjectPool() {}
 };
 
-template <typename T>
-class ObjectPool : IObjectPool
+template <typename TInnerObject>
+class ObjectPool : public IObjectPool
 {
-private:
-    std::vector<T> data;
+    private:
+        std::vector<TInnerObject> innerData;
 
-public:
-    ObjectPool(const int desiredSize = 100) { data.resize(desiredSize); }
+    public:
+        ObjectPool(const int desiredSize = 5) { innerData.resize(desiredSize); }
 
-    virtual ~ObjectPool() = default;
+        virtual ~ObjectPool() override = default;
 
-    const bool isEmpty() const { return data.empty(); }
+        const bool IsEmpty() const { return innerData.empty(); }
 
-    const int GetSize() const { return data.size(); }
+        const int GetSize() const { return innerData.size(); }
 
-    void Resize(const int newSize) { return data.resize(newSize); }
+        void Resize(const int newSize) { innerData.resize(newSize); }
 
-    void Clear() { data.clear(); }
+        void Clear() { innerData.clear(); }
 
-    void Add(T object) { data.push_back(object); }
+        void Add(TInnerObject object) { innerData.push_back(object); }
 
-    void Set(const int index, T object) { data[index] = object; }
+        void Set(const int index, TInnerObject object) { innerData[index] = object; }
 
-    T& Get(int index) { return static_cast<T&>(data[index]); }
+        TInnerObject& Get(int index) { return static_cast<TInnerObject&>(innerData[index]); }
 
-    T& operator [](unsigned int index) { return data[index]; }
+        TInnerObject& operator [](unsigned int index) { return innerData.at(index); }
 };
