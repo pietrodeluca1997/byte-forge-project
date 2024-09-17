@@ -1,4 +1,8 @@
-libs/
+# Folders
 assets/
+dist/
+libs/
+
+# Files
 *.exe
 *.dll
