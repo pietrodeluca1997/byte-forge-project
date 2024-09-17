@@ -1,8 +1,10 @@
 #include "logger.hpp"
+
 #include <ctime>
 #include <chrono>
 #include <iostream>
 #include <cstring>
+#include <iomanip>
 
 using std::string;
 using std::cerr;
@@ -44,15 +46,11 @@ void Logger::Fatal(const string& message)
 
 string Logger::GetCurrentDateTimeString()
 {
-	std::chrono::system_clock::time_point timePoint = std::chrono::system_clock::now();
-	time_t timestamp = std::chrono::system_clock::to_time_t(timePoint);
-	char buffer[26];
-
-	ctime_s(buffer, sizeof(buffer), &timestamp);
-
-	buffer[strlen(buffer) - 1] = '\0';
-
-	return buffer;
+	auto timePoint = std::chrono::system_clock::now();
+	std::time_t timestamp = std::chrono::system_clock::to_time_t(timePoint);
+	std::ostringstream oss;
+	oss << std::put_time(std::localtime(&timestamp), "%Y-%m-%d %H:%M:%S");
+	return oss.str();
 }
 
 void Logger::Print(const string& message, const ELogLevels logLevel, const string& levelName)

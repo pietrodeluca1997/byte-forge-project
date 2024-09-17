@@ -7,6 +7,7 @@ class Pong : public Application
     private:
         void CreateBall();
         void CreatePlayer();
+    
     public:
         Pong() = default;
         ~Pong() = default;

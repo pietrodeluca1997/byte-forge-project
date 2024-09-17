@@ -7,16 +7,19 @@ typedef std::bitset<MAX_COMPONENTS> ComponentSignature;
 
 class Entity 
 { 
-private:
-    int id;
+    private:
+        int id;
 
-public:
-    Entity(const int id) : id(id) {};
-    Entity(const Entity& entity) = default;
+    public:
+        Entity(const int id) : id(id) {}
+        Entity(const Entity& entity) = default;
 
-    int GetId() const { return id; }
+        int GetId() const { return id; }
 
-    Entity& operator =(const Entity& other) = default;
-    bool operator ==(const Entity& other) const { return GetId() == other.GetId(); }
-    bool operator !=(const Entity &other) const { return GetId() != other.GetId(); }
+        // Operators overload
+        Entity& operator =(const Entity& other) = default;
+        bool operator ==(const Entity& other) const { return GetId() == other.GetId(); }
+        bool operator !=(const Entity &other) const { return GetId() != other.GetId(); }
+        bool operator <(const Entity &other) const { return GetId() < other.GetId(); }
+        bool operator >(const Entity &other) const { return GetId() > other.GetId(); }
 };

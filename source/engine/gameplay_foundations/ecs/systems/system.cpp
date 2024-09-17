@@ -1,5 +1,9 @@
-#include "system.hpp"
 #include <algorithm>
+
+#include "system.hpp"
+
+using std::vector;
+using std::remove_if;
 
 void System::AddEntity(Entity entity)
 {
@@ -8,12 +12,12 @@ void System::AddEntity(Entity entity)
 
 void System::RemoveEntity(Entity entity)
 {
-    entities.erase(std::remove_if(entities.begin(), entities.end(), [&entity](Entity other) {
+    entities.erase(remove_if(entities.begin(), entities.end(), [&entity](Entity other) {
         return entity == other;
     }), entities.end());
 }
 
-std::vector<Entity> System::GetEntities()
+vector<Entity> System::GetEntities()
 {
     return entities;
 }

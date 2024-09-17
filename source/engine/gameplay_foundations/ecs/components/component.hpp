@@ -1,17 +1,18 @@
 #pragma once
 
-class IComponent 
+struct IComponent
 {
-protected:
-    static int nextId;    
+    public:
+        static int nextId;    
 };
 
-template <typename T>
-class Component : public IComponent
+template <typename TComponentType>
+struct Component : public IComponent
 {
-    static int GetId() 
-    {
-        static int id = nextId++;
-        return id;
-    }
+    public:
+        static int GetId() 
+        {
+            static int id = nextId++;
+            return id;
+        }
 };

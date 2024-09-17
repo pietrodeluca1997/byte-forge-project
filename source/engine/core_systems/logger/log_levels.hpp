@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+
 #include "log_colors.hpp"
 
 enum class ELogLevels {
@@ -15,4 +16,3 @@ enum class ELogLevels {
 
 extern const std::unordered_map<ELogLevels, std::string> LogLevelStringMap;
 extern const std::unordered_map<ELogLevels, ELogColors> LogLevelConsoleColorMap;
-

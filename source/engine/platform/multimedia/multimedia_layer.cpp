@@ -1,16 +1,16 @@
-#include "multimedia_layer.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <glm.hpp>
-#include <iostream>
-#include <core_systems/logger/logger.hpp>
 
-MultimediaLayer::MultimediaLayer() : isApplicationExitRequested(false)
-{
-}
+#include <iostream>
+
+#include "multimedia_layer.hpp"
+#include "core_systems/logger/logger.hpp"
 
 MultimediaLayer::~MultimediaLayer()
 {
+    Logger::Warning("Multimedia layer terminating...");
+    
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -31,9 +31,11 @@ const uint32_t MultimediaLayer::GetFrametime()
     return SDL_GetTicks();
 }
 
-bool MultimediaLayer::Initialize()
+bool MultimediaLayer::Initialize(std::shared_ptr<RenderSystem> applicationRenderSystem)
 {
-    Logger::Info("Multimedia layer initializing!");
+    Logger::Debug("Multimedia layer initializing...");
+
+    this->applicationRenderSystem = applicationRenderSystem;
 
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
@@ -66,27 +68,27 @@ bool MultimediaLayer::Initialize()
         return false;
     }
 
-    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
-
     return true;
 }
 
 void MultimediaLayer::ProcessInput()
 {
     SDL_Event sdlEvent;
+
     while (SDL_PollEvent(&sdlEvent))
     {
         switch (sdlEvent.type)
         {
-        case SDL_QUIT:
-            isApplicationExitRequested = true;
-            break;
-        case SDL_KEYDOWN:
-            if (sdlEvent.key.keysym.sym == SDLK_ESCAPE)
-            {
+            case SDL_QUIT:
                 isApplicationExitRequested = true;
-            }
-            break;
+                break;
+
+            case SDL_KEYDOWN:
+                if (sdlEvent.key.keysym.sym == SDLK_ESCAPE)
+                {
+                    isApplicationExitRequested = true;
+                }
+                break;
         }
     }
 }
@@ -95,6 +97,8 @@ void MultimediaLayer::Draw()
 {
     SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
     SDL_RenderClear(renderer);
+
+    applicationRenderSystem->Update();
 
     SDL_RenderPresent(renderer);
 }

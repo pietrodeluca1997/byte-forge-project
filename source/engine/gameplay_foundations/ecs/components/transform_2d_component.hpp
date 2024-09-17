@@ -1,11 +1,20 @@
 #pragma once
 
-#include "gameplay_foundations/ecs/components/component.hpp"
 #include <glm.hpp>
 
-class Transform2DComponent : public Component<Transform2DComponent>
+#include "component.hpp"
+
+struct Transform2DComponent
 {
     glm::vec2 position;
     glm::vec2 scale;
     double rotationAngle;
+    
+    Transform2DComponent() : position(0, 0), scale(0, 0), rotationAngle(0.0) {}
+    Transform2DComponent(glm::vec2 position, glm::vec2 scale, double rotationAngle) 
+    {
+        this->position = position;
+        this->scale = scale;
+        this->rotationAngle = rotationAngle;
+    }
 };
