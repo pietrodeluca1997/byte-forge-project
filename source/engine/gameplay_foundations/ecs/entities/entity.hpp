@@ -15,7 +15,7 @@ class Entity
         Entity(const Entity& entity) = default;
 
         int GetId() const { return id; }
-
+        
         // Operators overload
         Entity& operator =(const Entity& other) = default;
         bool operator ==(const Entity& other) const { return GetId() == other.GetId(); }

@@ -6,7 +6,7 @@
 class RenderSystem : public System  
 {
     public:
-        RenderSystem();
+        RenderSystem(const Registry &registry);
 
         void Update(struct SDL_Renderer *sdlRenderer);
 };

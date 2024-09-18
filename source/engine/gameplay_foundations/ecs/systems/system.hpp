@@ -6,25 +6,28 @@
 #include "gameplay_foundations/ecs/entities/entity.hpp"
 #include "gameplay_foundations/ecs/components/component.hpp"
 
+class Registry;
+
 class System 
 {
-private:
-    ComponentSignature requiredComponentSignature;
+    private:
+        ComponentSignature requiredComponentSignature;
 
-    std::vector<Entity> entities;
+        std::vector<Entity> systemEntities;
 
-public:
+    public:
+        System(const Registry &registry) : registryReference(registry) {}
+        ~System() = default;
 
-    System() = default;
-    ~System() = default;
+        void AddEntity(Entity entity);
+        void RemoveEntity(Entity entity);
+        std::vector<Entity> GetEntities();
 
-    void AddEntity(Entity entity);
-    void RemoveEntity(Entity entity);
-    std::vector<Entity> GetEntities();
+        const ComponentSignature& GetRequiredComponentSignature() const;
 
-    const ComponentSignature& GetRequiredComponentSignature() const;
+        template <typename TComponentType> void RequireComponent();
 
-    template <typename TComponentType> void RequireComponent();
+        const Registry& registryReference;
 };
 
 template <typename TComponentType>

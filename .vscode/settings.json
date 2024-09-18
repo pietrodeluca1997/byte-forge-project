@@ -70,6 +70,7 @@
         "xutility": "cpp",
         "chrono": "cpp",
         "ratio": "cpp",
-        "typeindex": "cpp"
+        "typeindex": "cpp",
+        "*.rh": "cpp"
     }
 }

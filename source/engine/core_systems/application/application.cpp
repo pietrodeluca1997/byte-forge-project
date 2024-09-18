@@ -11,28 +11,28 @@ void Application::Initialize()
 
     registry->AddSystem<RenderSystem>();
 
-    multimediaLayer.Initialize(registry->GetSystem<RenderSystem>());
+    multimediaLayer->Initialize(registry->GetSystem<RenderSystem>());
 }
 
 void Application::FixedUpdate()
 {
-    multimediaLayer.WaitForNextFrametime(previousFrameMilliseconds, MILLISECONDS_PER_FRAME);
+    multimediaLayer->WaitForNextFrametime(previousFrameMilliseconds, MILLISECONDS_PER_FRAME);
 
     // TO DO:
     // Delta time
-    double _ = (multimediaLayer.GetFrametime() - previousFrameMilliseconds) / 1000.0;
+    double _ = (multimediaLayer->GetFrametime() - previousFrameMilliseconds) / 1000.0;
 
-    previousFrameMilliseconds = multimediaLayer.GetFrametime();
+    previousFrameMilliseconds = multimediaLayer->GetFrametime();
 }
 
 void Application::Run()
 {
-    while (!multimediaLayer.IsApplicationExitRequested())
+    while (!multimediaLayer->IsApplicationExitRequested())
     {
-        multimediaLayer.ProcessInput();
+        multimediaLayer->ProcessInput();
         FixedUpdate();
         registry->Update();
-        multimediaLayer.Draw();
+        multimediaLayer->Draw();
     }
 }
 

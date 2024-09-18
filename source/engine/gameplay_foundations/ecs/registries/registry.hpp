@@ -13,7 +13,7 @@
 class Registry 
 {
     private:
-        int numberOfEntities = 0;
+        int totalNumberOfEntities = 0;
         std::set<Entity> entitiesToBeAdded;
 
         std::vector<std::shared_ptr<IObjectPool>> componentObjectPool;
@@ -34,13 +34,14 @@ class Registry
 
         void Update();
 
-        template<typename TComponent, typename ...TComponentArgs> void AddComponent(Entity entity, TComponentArgs&& ...args);
+        template <typename TComponent, typename ...TComponentArgs> void AddComponent(Entity entity, TComponentArgs&& ...args);
+        template <typename TComponent> TComponent& GetComponent(Entity entity) const;
 };
 
 template <typename TSystem, typename... TSystemArgs>
 inline void Registry::AddSystem(TSystemArgs &&...args)
 {
-    std::shared_ptr<TSystem> newSystem = std::make_shared<TSystem>(std::forward<TSystemArgs>(args)...);
+    std::shared_ptr<TSystem> newSystem = std::make_shared<TSystem>(*this, std::forward<TSystemArgs>(args)...);
     systemsMap.insert(std::make_pair(std::type_index(typeid(TSystem)), newSystem));
 }
 
@@ -73,7 +74,7 @@ inline void Registry::AddComponent(Entity entity, TComponentArgs &&...args)
 
     if (entityId >= componentPool->GetSize()) 
     {
-        componentPool->Resize(numberOfEntities);
+        componentPool->Resize(totalNumberOfEntities);
     }   
 
     TComponent newComponent(std::forward<TComponentArgs>(args)...);
@@ -81,4 +82,13 @@ inline void Registry::AddComponent(Entity entity, TComponentArgs &&...args)
     componentPool->Set(entityId, newComponent);
 
     entityComponentSignatures[entityId].set(componentId, true);
+}
+
+template <typename TComponent>
+TComponent &Registry::GetComponent(Entity entity) const
+{
+    const auto componentId = Component<TComponent>::GetId();
+    const auto entityId = entity.GetId();
+    auto componentPool = std::static_pointer_cast<ObjectPool<TComponent>>(componentObjectPool[componentId]);
+    return componentPool->Get(entityId);
 }

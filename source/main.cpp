@@ -11,7 +11,8 @@ using std::to_string;
 
 int main(int argc, char* argv[])
 {
-    Logger::Debug("Engine started with " + to_string(argc) + " argument(s): [ " + StringExtensions::Join(argv, "-") + " ]");
+    Logger::Info("Engine started with " + to_string(argc) + " argument(s): [ " + StringExtensions::Join(argv, "-") + " ]");
+    
     Logger::Debug("Pong game project selected...");
 
 	Pong pong;

@@ -7,19 +7,19 @@ using std::remove_if;
 
 void System::AddEntity(Entity entity)
 {
-    entities.push_back(entity);
+    systemEntities.push_back(entity);
 }
 
 void System::RemoveEntity(Entity entity)
 {
-    entities.erase(remove_if(entities.begin(), entities.end(), [&entity](Entity other) {
+    systemEntities.erase(remove_if(systemEntities.begin(), systemEntities.end(), [&entity](Entity other) {
         return entity == other;
-    }), entities.end());
+    }), systemEntities.end());
 }
 
 vector<Entity> System::GetEntities()
 {
-    return entities;
+    return systemEntities;
 }
 
 const ComponentSignature& System::GetRequiredComponentSignature() const

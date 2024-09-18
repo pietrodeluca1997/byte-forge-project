@@ -41,10 +41,10 @@ SRC = \
 # Output executable name
 OBJNAME = byteforgeproject
 
-# build command
+# Build command
 build:
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LIBDIRS) $(SRC) -o ./dist/$(OBJNAME).exe $(LIBS)
 
-# clean command
+# Clean command
 clean:
 	del ./dist/$(OBJNAME).exe

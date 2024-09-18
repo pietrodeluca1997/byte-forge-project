@@ -3,7 +3,7 @@
 
 Entity Registry::CreateEntity()
 {
-    int entityId = numberOfEntities++;
+    int entityId = totalNumberOfEntities++;
     
     Entity entity(entityId);
 
