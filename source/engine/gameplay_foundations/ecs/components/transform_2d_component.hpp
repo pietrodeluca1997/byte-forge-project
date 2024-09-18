@@ -2,19 +2,20 @@
 
 #include <glm.hpp>
 
-#include "component.hpp"
-
-struct Transform2DComponent
+namespace BFE::GameplayFoundations::ECS 
 {
-    glm::vec2 position;
-    glm::vec2 scale;
-    double rotationAngle;
-    
-    Transform2DComponent() : position(0, 0), scale(0, 0), rotationAngle(0.0) {}
-    Transform2DComponent(glm::vec2 position, glm::vec2 scale, double rotationAngle) 
+    struct Transform2DComponent
     {
-        this->position = position;
-        this->scale = scale;
-        this->rotationAngle = rotationAngle;
-    }
-};
+        glm::vec2 position;
+        glm::vec2 scale;
+        double rotationAngle;
+        
+        Transform2DComponent() : position(0, 0), scale(0, 0), rotationAngle(0.0) {}
+        Transform2DComponent(glm::vec2 position, glm::vec2 scale, double rotationAngle) 
+        {
+            this->position = position;
+            this->scale = scale;
+            this->rotationAngle = rotationAngle;
+        }
+    };
+}

@@ -1,12 +1,17 @@
 #pragma once
 
-#include "system.hpp"
-#include <core_systems/logger/logger.hpp>
+#include <SDL2/SDL.h>
 
-class RenderSystem : public System  
+#include "ecs_system.hpp"
+#include "core_systems/logging/logger.hpp"
+
+namespace BFE::GameplayFoundations::ECS
 {
-    public:
-        RenderSystem(const Registry &registry);
+    class RenderSystem : public ECSSystem
+    {
+        public:
+            RenderSystem(const ECSRegistry &registry);
 
-        void Update(struct SDL_Renderer *sdlRenderer);
-};
+            void Update(::SDL_Renderer *sdlRenderer);
+    };
+}

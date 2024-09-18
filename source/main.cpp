@@ -3,25 +3,25 @@
 #include <cstdlib>
 
 #include "core_systems/strings/string_extensions.hpp"
-#include "core_systems/logger/logger.hpp"
+#include "core_systems/logging/logger.hpp"
 #include "pong/pong.hpp"
 
-using BFE::CoreSystems::Strings::StringExtensions;
-using std::to_string;
+namespace Logging = BFE::CoreSystems::Logging;
+namespace Strings = BFE::CoreSystems::Strings;
 
 int main(int argc, char* argv[])
 {
-    Logger::Info("Engine started with " + to_string(argc) + " argument(s): [ " + StringExtensions::Join(argv, "-") + " ]");
-    
-    Logger::Debug("Pong game project selected...");
+    Logging::Logger::Info("Engine started with " + std::to_string(argc) + " argument(s): [ " + Strings::StringExtensions::Join(argv, "-") + " ]");
 
-	Pong pong;
+    Logging::Logger::Debug("Pong game project selected...");
+
+    Pong pong;
 
     pong.Initialize();
     pong.Run();
     pong.Shutdown();
 
-    Logger::Warning("Engine terminating...");
+    Logging::Logger::Warning("Engine terminating...");
 
     return EXIT_SUCCESS;
 }

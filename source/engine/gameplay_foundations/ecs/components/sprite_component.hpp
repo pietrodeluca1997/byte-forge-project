@@ -3,13 +3,16 @@
 #include <string>
 #include <glm.hpp>
 
-struct SpriteComponent
+namespace BFE::GameplayFoundations::ECS
 {
-    glm::vec2 size;
-    
-    SpriteComponent() : size(0, 0) {}
-    SpriteComponent(glm::vec2 size)
+    struct SpriteComponent
     {
-        this->size = size;
-    }
-};
+        glm::vec2 size;
+
+        SpriteComponent() : size(0, 0) {}
+        SpriteComponent(glm::vec2 size)
+        {
+            this->size = size;
+        }
+    };
+}

@@ -3,81 +3,83 @@
 #include <iostream>
 
 #include "multimedia_layer.hpp"
-#include "core_systems/logger/logger.hpp"
+#include "core_systems/logging/logger.hpp"
 
-MultimediaLayer::~MultimediaLayer()
+namespace Logging = BFE::CoreSystems::Logging;
+
+namespace BFE::Platform::Multimedia
 {
-    Logger::Warning("Multimedia layer terminating...");
-    
-    SDL_Quit();
-}
-
-void MultimediaLayer::WaitForNextFrametime(const uint32_t previousFrameMilliseconds, const uint32_t desiredFrametime)
-{
-    uint32_t timeToWait = desiredFrametime - (GetFrametime() - previousFrameMilliseconds);
-
-    if(timeToWait > 0 && timeToWait <= desiredFrametime)
+    MultimediaLayer::~MultimediaLayer()
     {
-        SDL_Delay(timeToWait);
-    }
-}
+        Logging::Logger::Warning("Multimedia layer terminating...");
 
-const uint32_t MultimediaLayer::GetFrametime() const
-{
-    return SDL_GetTicks();
-}
-
-bool MultimediaLayer::Initialize(std::shared_ptr<RenderSystem> applicationRenderSystem)
-{
-    Logger::Debug("Multimedia layer initializing...");
-
-    this->applicationRenderSystem = applicationRenderSystem;
-
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-    {
-        Logger::Fatal("Error initializing SDL");
-        return false;
-    };
-
-    SDL_DisplayMode displayMode;
-    SDL_GetCurrentDisplayMode(0, &displayMode);
-
-    window.reset(SDL_CreateWindow(
-        NULL,
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
-        displayMode.w,
-        displayMode.h,
-        SDL_WINDOW_BORDERLESS
-    ));
-
-    if (!window)
-    {
-        Logger::Fatal("Error creating SDL window");
-        return false;
+        SDL_Quit();
     }
 
-    renderer.reset(
-        SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
-    ));
-
-    if (!renderer)
+    void MultimediaLayer::WaitForNextFrametime(const uint32_t previousFrameMilliseconds, const uint32_t desiredFrametime)
     {
-        Logger::Fatal("Error creating SDL renderer");
-        return false;
-    }
+        uint32_t timeToWait = desiredFrametime - (GetFrametime() - previousFrameMilliseconds);
 
-    return true;
-}
-
-void MultimediaLayer::ProcessInput()
-{
-    SDL_Event sdlEvent;
-
-    while (SDL_PollEvent(&sdlEvent))
-    {
-        switch (sdlEvent.type)
+        if (timeToWait > 0 && timeToWait <= desiredFrametime)
         {
+            SDL_Delay(timeToWait);
+        }
+    }
+
+    const uint32_t MultimediaLayer::GetFrametime() const
+    {
+        return SDL_GetTicks();
+    }
+
+    bool MultimediaLayer::Initialize(std::shared_ptr<BFE::GameplayFoundations::ECS::RenderSystem> applicationRenderSystem)
+    {
+        Logging::Logger::Debug("Multimedia layer initializing...");
+
+        this->applicationRenderSystem = applicationRenderSystem;
+
+        if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+        {
+            Logging::Logger::Fatal("Error initializing SDL");
+            return false;
+        };
+
+        SDL_DisplayMode displayMode;
+        SDL_GetCurrentDisplayMode(0, &displayMode);
+
+        window.reset(SDL_CreateWindow(
+            NULL,
+            SDL_WINDOWPOS_CENTERED,
+            SDL_WINDOWPOS_CENTERED,
+            displayMode.w,
+            displayMode.h,
+            SDL_WINDOW_BORDERLESS));
+
+        if (!window)
+        {
+            Logging::Logger::Fatal("Error creating SDL window");
+            return false;
+        }
+
+        renderer.reset(
+            SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
+
+        if (!renderer)
+        {
+            Logging::Logger::Fatal("Error creating SDL renderer");
+            return false;
+        }
+
+        return true;
+    }
+
+    void MultimediaLayer::ProcessInput()
+    {
+        SDL_Event sdlEvent;
+
+        while (SDL_PollEvent(&sdlEvent))
+        {
+            switch (sdlEvent.type)
+            {
             case SDL_QUIT:
                 isApplicationExitRequested = true;
                 break;
@@ -88,16 +90,17 @@ void MultimediaLayer::ProcessInput()
                     isApplicationExitRequested = true;
                 }
                 break;
+            }
         }
     }
-}
 
-void MultimediaLayer::Draw()
-{
-    SDL_SetRenderDrawColor(renderer.get(), 21, 21, 21, 255);
-    SDL_RenderClear(renderer.get());
+    void MultimediaLayer::Draw()
+    {
+        SDL_SetRenderDrawColor(renderer.get(), 21, 21, 21, 255);
+        SDL_RenderClear(renderer.get());
 
-    applicationRenderSystem->Update(renderer.get());
+        applicationRenderSystem->Update(renderer.get());
 
-    SDL_RenderPresent(renderer.get());
+        SDL_RenderPresent(renderer.get());
+    }
 }

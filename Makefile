@@ -5,7 +5,7 @@ CXX = g++
 CXXFLAGS = -Wall -std=c++17 -g
 
 # Include directories
-INCLUDES = \
+INCLUDE_DIRECTORIES = \
     -Ilibs/SDL2/include \
     -Ilibs/imgui \
     -Ilibs/lua/include \
@@ -15,22 +15,22 @@ INCLUDES = \
     -Isource/games
 
 # Library directories
-LIBDIRS = \
+LIBRARY_DIRECTORIES = \
     -Llibs/SDL2/lib \
     -Llibs/lua/libs
 
 # Libraries to link
-LIBS = \
+LIBRARIES = \
     -lSDL2 \
     -lSDL2main \
     -lSDL2_image \
     -llua54
 
 # Source file directories
-SRC = \
+SOURCE_DIRECTORIES = \
     source/*.cpp \
     source/engine/core_systems/application/*.cpp \
-    source/engine/core_systems/logger/*.cpp \
+    source/engine/core_systems/logging/*.cpp \
     source/engine/core_systems/strings/*.cpp \
     source/engine/platform/multimedia/*.cpp \
     source/engine/gameplay_foundations/ecs/components/*.cpp \
@@ -39,12 +39,12 @@ SRC = \
     source/games/pong/*.cpp
 
 # Output executable name
-OBJNAME = byteforgeproject
+OUTPUT_EXECUTABLE_NAME = byteforgeproject
 
 # Build command
 build:
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LIBDIRS) $(SRC) -o ./dist/$(OBJNAME).exe $(LIBS)
+	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRECTORIES) $(LIBRARY_DIRECTORIES) $(SOURCE_DIRECTORIES) -o ./dist/$(OUTPUT_EXECUTABLE_NAME).exe $(LIBRARIES)
 
 # Clean command
 clean:
-	del ./dist/$(OBJNAME).exe
+	del ./dist/$(OUTPUT_EXECUTABLE_NAME).exe
