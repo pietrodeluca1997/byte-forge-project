@@ -14,7 +14,7 @@ class Application
         uint32_t previousFrameMilliseconds;
         class MultimediaLayer multimediaLayer;
 
-        std::unique_ptr<Registry> registry;
+        std::shared_ptr<Registry> registry;
 
     public:
         Application() : registry(std::make_unique<Registry>()) {};

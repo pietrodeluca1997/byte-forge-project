@@ -26,7 +26,7 @@ void Pong::Initialize()
     Logger::Debug("Pong game initializing...");
 
     Application::Initialize();
-
+    
     CreateBall();
     CreatePlayer();
 }

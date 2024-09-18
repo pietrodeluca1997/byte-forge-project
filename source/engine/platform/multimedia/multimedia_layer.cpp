@@ -1,5 +1,3 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <glm.hpp>
 
 #include <iostream>
@@ -11,8 +9,6 @@ MultimediaLayer::~MultimediaLayer()
 {
     Logger::Warning("Multimedia layer terminating...");
     
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
@@ -26,7 +22,7 @@ void MultimediaLayer::WaitForNextFrametime(const uint32_t previousFrameMilliseco
     }
 }
 
-const uint32_t MultimediaLayer::GetFrametime()
+const uint32_t MultimediaLayer::GetFrametime() const
 {
     return SDL_GetTicks();
 }
@@ -46,13 +42,14 @@ bool MultimediaLayer::Initialize(std::shared_ptr<RenderSystem> applicationRender
     SDL_DisplayMode displayMode;
     SDL_GetCurrentDisplayMode(0, &displayMode);
 
-    window = SDL_CreateWindow(
+    window.reset(SDL_CreateWindow(
         NULL,
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         displayMode.w,
         displayMode.h,
-        SDL_WINDOW_BORDERLESS);
+        SDL_WINDOW_BORDERLESS
+    ));
 
     if (!window)
     {
@@ -60,7 +57,9 @@ bool MultimediaLayer::Initialize(std::shared_ptr<RenderSystem> applicationRender
         return false;
     }
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    renderer.reset(
+        SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
+    ));
 
     if (!renderer)
     {
@@ -95,10 +94,10 @@ void MultimediaLayer::ProcessInput()
 
 void MultimediaLayer::Draw()
 {
-    SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
-    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer.get(), 21, 21, 21, 255);
+    SDL_RenderClear(renderer.get());
 
-    applicationRenderSystem->Update();
+    applicationRenderSystem->Update(renderer.get());
 
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer.get());
 }

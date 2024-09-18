@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include "gameplay_foundations/ecs/entities/entity.hpp"
 #include "gameplay_foundations/ecs/components/component.hpp"
@@ -13,10 +14,9 @@ private:
     std::vector<Entity> entities;
 
 public:
+
     System() = default;
     ~System() = default;
-
-    virtual void Update() {};
 
     void AddEntity(Entity entity);
     void RemoveEntity(Entity entity);

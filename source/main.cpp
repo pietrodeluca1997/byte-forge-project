@@ -1,3 +1,5 @@
+#define SDL_MAIN_HANDLED
+
 #include <cstdlib>
 
 #include "core_systems/strings/string_extensions.hpp"

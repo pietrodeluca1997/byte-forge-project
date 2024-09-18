@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SDL2/SDL.h>
 #include <memory>
 #include <cstdint>
 
@@ -10,8 +11,8 @@ class MultimediaLayer
 private:
     bool isApplicationExitRequested;
 
-    struct SDL_Window* window;
-    struct SDL_Renderer* renderer;
+    std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> window{nullptr, SDL_DestroyWindow};
+    std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> renderer{nullptr, SDL_DestroyRenderer};
 
     std::shared_ptr<RenderSystem> applicationRenderSystem;
     
@@ -20,9 +21,9 @@ public:
     ~MultimediaLayer();
 
     void WaitForNextFrametime(const uint32_t previousFrameMilliseconds, const uint32_t desiredFrametime);
-    const uint32_t GetFrametime();
+    const uint32_t GetFrametime() const;
 
-    bool IsApplicationExitRequested() { return isApplicationExitRequested; }
+    const bool IsApplicationExitRequested() const { return isApplicationExitRequested; }
     
     bool Initialize(std::shared_ptr<RenderSystem> applicationRenderSystem);
     void ProcessInput();

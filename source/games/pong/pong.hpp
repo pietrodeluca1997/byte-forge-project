@@ -9,8 +9,13 @@ class Pong : public Application
         void CreatePlayer();
     
     public:
-        Pong() = default;
+        Pong() : Application() {}
         ~Pong() = default;
+
+        Pong(const Pong &) = delete;
+        Pong& operator=(const Pong &) = delete;
+        Pong(Pong &&) = delete;
+        Pong& operator=(Pong &&) = delete;
 
         virtual void Initialize() override;
 

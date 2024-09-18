@@ -18,7 +18,7 @@ class Registry
 
         std::vector<std::shared_ptr<IObjectPool>> componentObjectPool;
 
-        std::vector<ComponentSignature> componentSignatures;
+        std::vector<ComponentSignature> entityComponentSignatures;
 
         std::unordered_map<std::type_index, std::shared_ptr<System>> systemsMap;
 
@@ -26,7 +26,8 @@ class Registry
         Registry() = default;
         ~Registry() = default;
 
-        template <typename TSystem, typename ...TSystemArgs> void AddSystem(TSystemArgs&& ...args);
+        template <typename TSystem, typename... TSystemArgs>
+        void AddSystem(TSystemArgs &&...args);
         template <typename TSystem> std::shared_ptr<TSystem> GetSystem() const;
 
         Entity CreateEntity();
@@ -79,6 +80,5 @@ inline void Registry::AddComponent(Entity entity, TComponentArgs &&...args)
 
     componentPool->Set(entityId, newComponent);
 
-    // TO DO:
-    //componentSignatures[entityId].set(componentId, true);
+    entityComponentSignatures[entityId].set(componentId, true);
 }

@@ -6,8 +6,7 @@
 class RenderSystem : public System  
 {
     public:
-        RenderSystem() = default;
+        RenderSystem();
 
-        void Update() override {}
-
+        void Update(struct SDL_Renderer *sdlRenderer);
 };
