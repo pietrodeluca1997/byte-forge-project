@@ -5,6 +5,7 @@
 #include "core_systems/logging/logger.hpp"
 #include "gameplay_foundations/ecs/systems/render_system.hpp"
 #include "gameplay_foundations/ecs/systems/physics_system.hpp"
+#include "gameplay_foundations/ecs/systems/input_system.hpp"
 
 namespace BFE::CoreSystems::Application
 {
@@ -18,8 +19,9 @@ namespace BFE::CoreSystems::Application
 
         ecsRegistry->AddSystem<ECS::RenderSystem>();
         ecsRegistry->AddSystem<ECS::PhysicsSystem>();
+        ecsRegistry->AddSystem<ECS::InputSystem>();
 
-        multimediaLayer->Initialize(ecsRegistry->GetSystem<ECS::RenderSystem>());
+        multimediaLayer->Initialize(ecsRegistry->GetSystem<ECS::RenderSystem>(), ecsRegistry->GetSystem<ECS::InputSystem>());
     }
 
     void Application::FixedUpdate()

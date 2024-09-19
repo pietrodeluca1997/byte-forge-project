@@ -31,11 +31,12 @@ namespace BFE::Platform::Multimedia
         return SDL_GetTicks();
     }
 
-    bool MultimediaLayer::Initialize(std::shared_ptr<BFE::GameplayFoundations::ECS::RenderSystem> applicationRenderSystem)
+    bool MultimediaLayer::Initialize(std::shared_ptr<BFE::GameplayFoundations::ECS::RenderSystem> applicationRenderSystem, std::shared_ptr<BFE::GameplayFoundations::ECS::InputSystem> applicationInputSystem)
     {
         Logging::Logger::Debug("Multimedia layer initializing...");
 
         this->applicationRenderSystem = applicationRenderSystem;
+        this->applicationInputSystem = applicationInputSystem;
 
         if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
         {
@@ -78,9 +79,10 @@ namespace BFE::Platform::Multimedia
     void MultimediaLayer::ProcessInput()
     {
         SDL_Event sdlEvent;
-
+        
         while (SDL_PollEvent(&sdlEvent))
         {
+            applicationInputSystem->Update(sdlEvent);
             switch (sdlEvent.type)
             {
             case SDL_QUIT:
