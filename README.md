@@ -1,6 +1,14 @@
 ﻿# ByteForge Project
 
-ByteForge is a simple 2D (for now) game engine developed in C++ using popular libraries such as SDL2, ImGui, Lua, Sol, and GLM.
+ByteForge is a simple 2D (for now) game engine developed in C++ using popular libraries such as SDL2, ImGui, Lua, Sol, and GLM. Currently, the engine generates only an executable based on the selected game's class. However, in the future, the engine will evolve into a library, benefiting both the editor and the game.
+
+## Roadmap
+
+- **Core Features**: First, I plan to complete the basic 2D engine components like input handling, physics, animation, and others. After that, the focus will shift to 3D capabilities.
+- **OpenGL**: Initial graphics API implementation due to its simplicity, allowing for faster feature releases in the engine.
+- **WebGPU**: Support for WebGPU, alongside WebAssembly, using Google Dawn to run both native applications and web-based versions with WebGPU.
+- **Vulkan**: After OpenGL, the focus will be on Vulkan to enable more complex games with better performance and flexibility.
+- **DirectX 12 and 11**: DirectX 12 will be added as an additional option for developers.
 
 ## Requirements
 
