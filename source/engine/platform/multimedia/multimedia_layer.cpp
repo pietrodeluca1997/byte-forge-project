@@ -46,6 +46,9 @@ namespace BFE::Platform::Multimedia
         SDL_DisplayMode displayMode;
         SDL_GetCurrentDisplayMode(0, &displayMode);
 
+        windowHeight = displayMode.h;
+        windowWidth = displayMode.w;
+
         window.reset(SDL_CreateWindow(
             NULL,
             SDL_WINDOWPOS_CENTERED,

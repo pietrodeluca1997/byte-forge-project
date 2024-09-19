@@ -24,7 +24,27 @@ void Pong::CreatePlayer()
     ECS::ECSEntity player = ecsRegistry->CreateEntity();
 
     ecsRegistry->AddComponent<ECS::Transform2DComponent>(player, vec2(100, 100), vec2(1, 1), 0.0);
-    ecsRegistry->AddComponent<ECS::SpriteComponent>(player, vec2(32, 32));
+    ecsRegistry->AddComponent<ECS::SpriteComponent>(player, vec2(32, 128));
+}
+
+void Pong::CreateWalls()
+{
+    Logging::Logger::Debug("Creating walls...");
+
+    ECS::ECSEntity topWall = ecsRegistry->CreateEntity();
+
+    ecsRegistry->AddComponent<ECS::Transform2DComponent>(topWall, vec2(0, 0), vec2(1, 1), 0.0);
+    ecsRegistry->AddComponent<ECS::SpriteComponent>(topWall, vec2(multimediaLayer->GetWindowWidth(), 32));
+
+    ECS::ECSEntity bottomWall = ecsRegistry->CreateEntity();
+
+    ecsRegistry->AddComponent<ECS::Transform2DComponent>(bottomWall, vec2(0, multimediaLayer->GetWindowHeight() - 32), vec2(1, 1), 0.0);
+    ecsRegistry->AddComponent<ECS::SpriteComponent>(bottomWall, vec2(multimediaLayer->GetWindowWidth(), 32));
+
+    ECS::ECSEntity rightWall = ecsRegistry->CreateEntity();
+
+    ecsRegistry->AddComponent<ECS::Transform2DComponent>(rightWall, vec2(multimediaLayer->GetWindowWidth() - 32, 0), vec2(1, 1), 0.0);
+    ecsRegistry->AddComponent<ECS::SpriteComponent>(rightWall, vec2(32, multimediaLayer->GetWindowHeight()));
 }
 
 void Pong::Initialize()
@@ -35,4 +55,5 @@ void Pong::Initialize()
     
     CreateBall();
     CreatePlayer();
+    CreateWalls();
 }

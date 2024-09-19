@@ -7,6 +7,7 @@ class Pong : public BFE::CoreSystems::Application::Application
     private:
         void CreateBall();
         void CreatePlayer();
+        void CreateWalls();
     
     public:
         Pong() : Application() {}
