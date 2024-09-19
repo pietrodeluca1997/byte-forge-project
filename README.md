@@ -72,6 +72,16 @@ make clean
 
 This will delete the `byteforgeproject.exe` executable.
 
+## Contributing
+
+We welcome contributions to ByteForge! To contribute, please follow these steps:
+
+1. Fork the repository and clone your fork locally.
+2. Create a new branch for your feature or bugfix.
+3. Submit a pull request with a clear description of your changes.
+
+Please ensure that your code is well-documented and explain any complex logic where necessary.
+
 ## More Information
 
 For more information on using Makefile, refer to the [GNU Make documentation](https://www.gnu.org/software/make/manual/make.html).
