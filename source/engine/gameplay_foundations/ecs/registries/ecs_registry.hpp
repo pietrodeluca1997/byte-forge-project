@@ -90,7 +90,7 @@ namespace BFE::GameplayFoundations::ECS
     }
 
     template <typename TComponent>
-    TComponent &ECSRegistry::GetComponent(ECSEntity entity) const
+    TComponent& ECSRegistry::GetComponent(ECSEntity entity) const
     {
         const auto componentId = ECSComponent<TComponent>::GetId();
         const auto entityId = entity.GetId();

@@ -4,6 +4,7 @@
 #include "application.hpp"
 #include "core_systems/logging/logger.hpp"
 #include "gameplay_foundations/ecs/systems/render_system.hpp"
+#include "gameplay_foundations/ecs/systems/physics_system.hpp"
 
 namespace BFE::CoreSystems::Application
 {
@@ -16,6 +17,7 @@ namespace BFE::CoreSystems::Application
         Logging::Logger::Debug("Core application initializing...");
 
         ecsRegistry->AddSystem<ECS::RenderSystem>();
+        ecsRegistry->AddSystem<ECS::PhysicsSystem>();
 
         multimediaLayer->Initialize(ecsRegistry->GetSystem<ECS::RenderSystem>());
     }
@@ -23,10 +25,10 @@ namespace BFE::CoreSystems::Application
     void Application::FixedUpdate()
     {
         multimediaLayer->WaitForNextFrametime(previousFrameMilliseconds, MILLISECONDS_PER_FRAME);
+                
+        const double deltaTime = (multimediaLayer->GetFrametime() - previousFrameMilliseconds) / 1000.0;
 
-        // TO DO:
-        // Delta time
-        double _ = (multimediaLayer->GetFrametime() - previousFrameMilliseconds) / 1000.0;
+        ecsRegistry->GetSystem<ECS::PhysicsSystem>()->Update(deltaTime);
 
         previousFrameMilliseconds = multimediaLayer->GetFrametime();
     }
