@@ -13,6 +13,7 @@ namespace BFE::GameplayFoundations::ECS
             int id;
 
         public:
+            ECSEntity() = default;
             ECSEntity(const int id) : id(id) {}
             ECSEntity(const ECSEntity& entity) = default;
 

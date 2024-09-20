@@ -21,17 +21,17 @@ namespace BFE::GameplayFoundations::ECS
 
     void ECSRegistry::Update()
     {
-        for (auto entity : entitiesToBeAdded) 
+        for (ECS::ECSEntity entity : entitiesToBeAdded) 
         {   
-            const auto entityId = entity.GetId();
+            const int entityId = entity.GetId();
 
-            const auto &entityComponentSignature = entityComponentSignatures[entityId];
+            const ECS::EntityComponentSignature &entityComponentSignature = entityComponentSignatures[entityId];
 
             for (auto& system : systemsMap) 
             {
-                const auto& systemComponentSignature = system.second->GetRequiredEntityComponentSignature();
+                const ECS::EntityComponentSignature& systemRequiredEntityComponentSignature = system.second->GetRequiredEntityComponentSignature();
 
-                bool isInterested = (entityComponentSignature & systemComponentSignature) == systemComponentSignature;
+                bool isInterested = (entityComponentSignature & systemRequiredEntityComponentSignature) == systemRequiredEntityComponentSignature;
 
                 if (isInterested) 
                 {
@@ -40,6 +40,9 @@ namespace BFE::GameplayFoundations::ECS
             }
         }
 
-        entitiesToBeAdded.clear();
+        if (entitiesToBeAdded.size() > 0) 
+        {
+            entitiesToBeAdded.clear();
+        }
     }
 }

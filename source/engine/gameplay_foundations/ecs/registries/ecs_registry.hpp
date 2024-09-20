@@ -31,8 +31,7 @@ namespace BFE::GameplayFoundations::ECS
             ECSRegistry() = default;
             ~ECSRegistry() = default;
 
-            template <typename TSystem, typename... TSystemArgs>
-            void AddSystem(TSystemArgs &&...args);
+            template <typename TSystem, typename... TSystemArgs> void AddSystem(TSystemArgs &&...args);
             template <typename TSystem> std::shared_ptr<TSystem> GetSystem() const;
 
             ECS::ECSEntity CreateEntity();

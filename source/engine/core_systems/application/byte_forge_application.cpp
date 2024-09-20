@@ -1,7 +1,7 @@
 #include <iostream>
 #include <memory>
 
-#include "application.hpp"
+#include "byte_forge_application.hpp"
 #include "core_systems/logging/logger.hpp"
 #include "gameplay_foundations/ecs/systems/render_system.hpp"
 #include "gameplay_foundations/ecs/systems/physics_system.hpp"
@@ -13,9 +13,9 @@ namespace BFE::CoreSystems::Application
     namespace Multimedia = Platform::Multimedia;
     namespace ECS = GameplayFoundations::ECS;
 
-    void Application::Initialize()
+    void ByteForgeApplication::Initialize()
     {
-        Logging::Logger::Debug("Core application initializing...");
+        Logging::Logger::Debug("Byte Forge application initializing...");
 
         ecsRegistry->AddSystem<ECS::RenderSystem>();
         ecsRegistry->AddSystem<ECS::PhysicsSystem>();
@@ -24,7 +24,7 @@ namespace BFE::CoreSystems::Application
         multimediaLayer->Initialize(ecsRegistry->GetSystem<ECS::RenderSystem>(), ecsRegistry->GetSystem<ECS::InputSystem>());
     }
 
-    void Application::FixedUpdate()
+    void ByteForgeApplication::FixedUpdate()
     {
         multimediaLayer->WaitForNextFrametime(previousFrameMilliseconds, MILLISECONDS_PER_FRAME);
                 
@@ -35,19 +35,19 @@ namespace BFE::CoreSystems::Application
         previousFrameMilliseconds = multimediaLayer->GetFrametime();
     }
 
-    void Application::Run()
+    void ByteForgeApplication::Run()
     {
         while (!multimediaLayer->IsApplicationExitRequested())
         {
             multimediaLayer->ProcessInput();
             FixedUpdate();
             ecsRegistry->Update();
-            multimediaLayer->Draw();
+            multimediaLayer->Render();
         }
     }
 
-    void Application::Shutdown()
+    void ByteForgeApplication::Shutdown()
     {
-        Logging::Logger::Warning("Core application terminating...");
+        Logging::Logger::Warning("Byte Forge application terminating...");
     }
 }

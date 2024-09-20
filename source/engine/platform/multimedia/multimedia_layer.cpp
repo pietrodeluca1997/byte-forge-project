@@ -5,10 +5,10 @@
 #include "multimedia_layer.hpp"
 #include "core_systems/logging/logger.hpp"
 
-namespace Logging = BFE::CoreSystems::Logging;
-
 namespace BFE::Platform::Multimedia
 {
+    namespace Logging = BFE::CoreSystems::Logging;
+
     MultimediaLayer::~MultimediaLayer()
     {
         Logging::Logger::Warning("Multimedia layer terminating...");
@@ -83,6 +83,7 @@ namespace BFE::Platform::Multimedia
         while (SDL_PollEvent(&sdlEvent))
         {
             applicationInputSystem->Update(sdlEvent);
+            
             switch (sdlEvent.type)
             {
             case SDL_QUIT:
@@ -99,7 +100,7 @@ namespace BFE::Platform::Multimedia
         }
     }
 
-    void MultimediaLayer::Draw()
+    void MultimediaLayer::Render()
     {
         SDL_SetRenderDrawColor(renderer.get(), 21, 21, 21, 255);
         SDL_RenderClear(renderer.get());

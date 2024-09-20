@@ -1,16 +1,21 @@
 #pragma once
 
-#include "core_systems/application/application.hpp"
+#include "core_systems/application/byte_forge_application.hpp"
+#include "gameplay_foundations/ecs/entities/ecs_entity.hpp"
 
-class Pong : public BFE::CoreSystems::Application::Application 
+class Pong : public BFE::CoreSystems::Application::ByteForgeApplication 
 {
     private:
+        BFE::GameplayFoundations::ECS::ECSEntity topWall, rightWall, bottomWall, player, ball;
+
         void CreateBall();
         void CreatePlayer();
         void CreateWalls();
+        void MovePlayerUp();
+        void MovePlayerDown();
     
     public:
-        Pong() : Application() {}
+        Pong() : ByteForgeApplication() {}
         ~Pong() = default;
 
         Pong(const Pong &) = delete;

@@ -33,6 +33,7 @@ SOURCE_DIRECTORIES = \
     source/engine/core_systems/logging/*.cpp \
     source/engine/core_systems/strings/*.cpp \
     source/engine/platform/multimedia/*.cpp \
+    source/engine/platform/multimedia/input/*.cpp \
     source/engine/gameplay_foundations/ecs/components/*.cpp \
     source/engine/gameplay_foundations/ecs/systems/*.cpp \
     source/engine/gameplay_foundations/ecs/registries/*.cpp \

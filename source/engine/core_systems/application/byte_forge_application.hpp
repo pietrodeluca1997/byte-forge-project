@@ -10,7 +10,7 @@ constexpr uint32_t MILLISECONDS_PER_FRAME = 1000 / FPS;
 
 namespace BFE::CoreSystems::Application 
 {
-    class Application
+    class ByteForgeApplication
     {
         protected:
             uint32_t previousFrameMilliseconds;
@@ -20,13 +20,13 @@ namespace BFE::CoreSystems::Application
             std::unique_ptr<BFE::GameplayFoundations::ECS::ECSRegistry> ecsRegistry;
 
         public:
-            Application() : multimediaLayer(std::make_unique<BFE::Platform::Multimedia::MultimediaLayer>()), ecsRegistry(std::make_unique<BFE::GameplayFoundations::ECS::ECSRegistry>()) {};
-            ~Application() = default;
+            ByteForgeApplication() : multimediaLayer(std::make_unique<BFE::Platform::Multimedia::MultimediaLayer>()), ecsRegistry(std::make_unique<BFE::GameplayFoundations::ECS::ECSRegistry>()) {};
+            ~ByteForgeApplication() = default;
 
-            Application(const Application &) = delete;
-            Application &operator=(const Application &) = delete;
-            Application(Application &&) = delete;
-            Application &operator=(Application &&) = delete;
+            ByteForgeApplication(const ByteForgeApplication &) = delete;
+            ByteForgeApplication &operator=(const ByteForgeApplication &) = delete;
+            ByteForgeApplication(ByteForgeApplication &&) = delete;
+            ByteForgeApplication &operator=(ByteForgeApplication &&) = delete;
 
             virtual void Initialize();
 
