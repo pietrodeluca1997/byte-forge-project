@@ -4,6 +4,8 @@
 #include "gameplay_foundations/ecs/registries/ecs_registry.hpp"
 #include "platform/multimedia/input/input_keys.hpp"
 
+using namespace BFE::Platform::Multimedia::Input;
+
 namespace BFE::GameplayFoundations::ECS
 {
     InputSystem::InputSystem(const ECSRegistry &registry) : ECSSystem(registry)
@@ -14,13 +16,13 @@ namespace BFE::GameplayFoundations::ECS
 
     void InputSystem::Update(const SDL_Event& event)
     {
-        for(auto& entity : GetEntities())
+        for(ECSEntity& entity : GetEntities())
         {
-            auto& playerController = ecsRegistryReference.GetComponent<PlayerControllerComponent>(entity);
+            PlayerControllerComponent& playerController = ecsRegistryReference.GetComponent<PlayerControllerComponent>(entity);
 
             if(event.type == SDL_KEYDOWN)
             {
-                auto& inputKey = Platform::Multimedia::Input::SDLKeyCodeMap[event.key.keysym.sym];
+                EInputKeys& inputKey = SDLKeyCodeMap[event.key.keysym.sym];
 
                 playerController.inputActions[inputKey]();
             }

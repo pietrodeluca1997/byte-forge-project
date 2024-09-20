@@ -13,18 +13,25 @@ namespace BFE::Platform::Multimedia
     class MultimediaLayer
     {
         private:
-            int windowWidth;
-            int windowHeight;
+            int applicationWindowWidth;
+            int applicationWindowHeight;
+            
             bool isApplicationExitRequested;
 
-            std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> window{nullptr, SDL_DestroyWindow};
-            std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> renderer{nullptr, SDL_DestroyRenderer};
+            std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> applicationWindow{nullptr, SDL_DestroyWindow};
+            std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> applicationWindowRenderer{nullptr, SDL_DestroyRenderer};
 
             std::shared_ptr<BFE::GameplayFoundations::ECS::RenderSystem> applicationRenderSystem;
             std::shared_ptr<BFE::GameplayFoundations::ECS::InputSystem> applicationInputSystem;
 
+            void AddRequiredECSSystemsReference(std::shared_ptr<BFE::GameplayFoundations::ECS::RenderSystem> applicationRenderSystem, std::shared_ptr<BFE::GameplayFoundations::ECS::InputSystem> applicationInputSystem);
+
+            bool InitializeSDL();
+            bool CreateFullScreenWindow();
+            bool CreateWindowRenderer();
+
         public:
-            MultimediaLayer() : isApplicationExitRequested(false), applicationRenderSystem(nullptr), applicationInputSystem(nullptr) {}
+            MultimediaLayer() : isApplicationExitRequested(false) {}
             ~MultimediaLayer();
 
             void WaitForNextFrametime(const uint32_t previousFrameMilliseconds, const uint32_t desiredFrametime);
@@ -32,8 +39,8 @@ namespace BFE::Platform::Multimedia
 
             const bool IsApplicationExitRequested() const { return isApplicationExitRequested; }
             
-            const int GetWindowWidth() const { return windowWidth; }
-            const int GetWindowHeight() const { return windowHeight; }
+            const int GetWindowWidth() const { return applicationWindowWidth; }
+            const int GetWindowHeight() const { return applicationWindowHeight; }
 
             bool Initialize(std::shared_ptr<BFE::GameplayFoundations::ECS::RenderSystem> applicationRenderSystem, std::shared_ptr<BFE::GameplayFoundations::ECS::InputSystem> applicationInputSystem);
             void ProcessInput();

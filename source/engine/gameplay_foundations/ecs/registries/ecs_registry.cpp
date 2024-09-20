@@ -1,13 +1,14 @@
 #include "ecs_registry.hpp"
+
 #include "core_systems/logging/logger.hpp"
 
 namespace BFE::GameplayFoundations::ECS 
 {
-    ECS::ECSEntity ECSRegistry::CreateEntity()
+    ECSEntity ECSRegistry::CreateEntity()
     {
         int entityId = totalNumberOfEntities++;
         
-        ECS::ECSEntity entity(entityId);
+        ECSEntity entity(entityId);
 
         entitiesToBeAdded.insert(entity);
 
@@ -21,15 +22,15 @@ namespace BFE::GameplayFoundations::ECS
 
     void ECSRegistry::Update()
     {
-        for (ECS::ECSEntity entity : entitiesToBeAdded) 
+        for (ECSEntity entity : entitiesToBeAdded) 
         {   
             const int entityId = entity.GetId();
 
-            const ECS::EntityComponentSignature &entityComponentSignature = entityComponentSignatures[entityId];
+            const EntityComponentSignature &entityComponentSignature = entityComponentSignatures[entityId];
 
             for (auto& system : systemsMap) 
             {
-                const ECS::EntityComponentSignature& systemRequiredEntityComponentSignature = system.second->GetRequiredEntityComponentSignature();
+                const EntityComponentSignature& systemRequiredEntityComponentSignature = system.second->GetRequiredEntityComponentSignature();
 
                 bool isInterested = (entityComponentSignature & systemRequiredEntityComponentSignature) == systemRequiredEntityComponentSignature;
 

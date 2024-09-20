@@ -12,16 +12,13 @@
 
 namespace BFE::GameplayFoundations::ECS 
 {
-    using BFE::CoreSystems::Memory::IObjectPool;
-    using BFE::CoreSystems::Memory::ObjectPool;
-
     class ECSRegistry 
     {
         private:
             int totalNumberOfEntities = 0;
             std::set<ECSEntity> entitiesToBeAdded;
 
-            std::vector<std::shared_ptr<IObjectPool>> componentObjectPool;
+            std::vector<std::shared_ptr<BFE::CoreSystems::Memory::IObjectPool>> componentObjectPool;
 
             std::vector<EntityComponentSignature> entityComponentSignatures;
 
@@ -31,35 +28,35 @@ namespace BFE::GameplayFoundations::ECS
             ECSRegistry() = default;
             ~ECSRegistry() = default;
 
-            template <typename TSystem, typename... TSystemArgs> void AddSystem(TSystemArgs &&...args);
-            template <typename TSystem> std::shared_ptr<TSystem> GetSystem() const;
+            template <typename TECSSystem, typename... TECSSystemArgs> void AddSystem(TECSSystemArgs &&...args);
+            template <typename TECSSystem> std::shared_ptr<TECSSystem> GetSystem() const;
 
             ECS::ECSEntity CreateEntity();
 
             void Update();
 
-            template <typename TComponent, typename ...TComponentArgs> void AddComponent(ECSEntity entity, TComponentArgs&& ...args);
-            template <typename TComponent> TComponent& GetComponent(ECS::ECSEntity entity) const;
+            template <typename TECSComponent, typename ...TECSComponentArgs> void AddComponent(ECSEntity entity, TECSComponentArgs&& ...args);
+            template <typename TECSComponent> TECSComponent& GetComponent(ECS::ECSEntity entity) const;
     };
 
-    template <typename TSystem, typename... TSystemArgs>
-    inline void ECSRegistry::AddSystem(TSystemArgs &&...args)
+    template <typename TECSSystem, typename... TECSSystemArgs>
+    inline void ECSRegistry::AddSystem(TECSSystemArgs &&...args)
     {
-        std::shared_ptr<TSystem> newSystem = std::make_shared<TSystem>(*this, std::forward<TSystemArgs>(args)...);
-        systemsMap.insert(std::make_pair(std::type_index(typeid(TSystem)), newSystem));
+        std::shared_ptr<TECSSystem> newSystem = std::make_shared<TECSSystem>(*this, std::forward<TECSSystemArgs>(args)...);
+        systemsMap.insert(std::make_pair(std::type_index(typeid(TECSSystem)), newSystem));
     }
 
-    template <typename TSystem>
-    std::shared_ptr<TSystem> ECSRegistry::GetSystem() const
+    template <typename TECSSystem>
+    std::shared_ptr<TECSSystem> ECSRegistry::GetSystem() const
     {
-        auto pair = systemsMap.find(std::type_index(typeid(TSystem)));
-        return std::static_pointer_cast<TSystem>(pair->second);
+        auto pair = systemsMap.find(std::type_index(typeid(TECSSystem)));
+        return std::static_pointer_cast<TECSSystem>(pair->second);
     }
 
-    template <typename TComponent, typename... TComponentArgs>
-    inline void ECSRegistry::AddComponent(ECSEntity entity, TComponentArgs &&...args)
+    template <typename TECSComponent, typename... TECSComponentArgs>
+    inline void ECSRegistry::AddComponent(ECSEntity entity, TECSComponentArgs &&...args)
     {
-        const int componentId = ECSComponent<TComponent>::GetId();
+        const int componentId = ECSComponent<TECSComponent>::GetId();
 
         const int entityId = entity.GetId();
 
@@ -70,30 +67,30 @@ namespace BFE::GameplayFoundations::ECS
 
         if (!componentObjectPool[componentId])
         {
-            std::shared_ptr<ObjectPool<TComponent>> newComponentPool = std::make_shared<ObjectPool<TComponent>>();
+            std::shared_ptr<BFE::CoreSystems::Memory::ObjectPool<TECSComponent>> newComponentPool = std::make_shared<BFE::CoreSystems::Memory::ObjectPool<TECSComponent>>();
             componentObjectPool[componentId] = newComponentPool;
         }
 
-        std::shared_ptr<ObjectPool<TComponent>> componentPool = std::static_pointer_cast<ObjectPool<TComponent>>(componentObjectPool[componentId]);
+        std::shared_ptr<BFE::CoreSystems::Memory::ObjectPool<TECSComponent>> componentPool = std::static_pointer_cast<BFE::CoreSystems::Memory::ObjectPool<TECSComponent>>(componentObjectPool[componentId]);
 
         if (entityId >= componentPool->GetSize()) 
         {
             componentPool->Resize(totalNumberOfEntities);
         }   
 
-        TComponent newComponent(std::forward<TComponentArgs>(args)...);
+        TECSComponent newComponent(std::forward<TECSComponentArgs>(args)...);
 
         componentPool->Set(entityId, newComponent);
 
         entityComponentSignatures[entityId].set(componentId, true);
     }
 
-    template <typename TComponent>
-    TComponent& ECSRegistry::GetComponent(ECSEntity entity) const
+    template <typename TECSComponent>
+    TECSComponent& ECSRegistry::GetComponent(ECSEntity entity) const
     {
-        const auto componentId = ECSComponent<TComponent>::GetId();
+        const auto componentId = ECSComponent<TECSComponent>::GetId();
         const auto entityId = entity.GetId();
-        auto componentPool = std::static_pointer_cast<ObjectPool<TComponent>>(componentObjectPool[componentId]);
+        auto componentPool = std::static_pointer_cast<BFE::CoreSystems::Memory::ObjectPool<TECSComponent>>(componentObjectPool[componentId]);
         return componentPool->Get(entityId);
     }
 }

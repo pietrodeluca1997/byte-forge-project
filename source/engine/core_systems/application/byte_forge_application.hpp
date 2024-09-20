@@ -21,7 +21,7 @@ namespace BFE::CoreSystems::Application
 
         public:
             ByteForgeApplication() : multimediaLayer(std::make_unique<BFE::Platform::Multimedia::MultimediaLayer>()), ecsRegistry(std::make_unique<BFE::GameplayFoundations::ECS::ECSRegistry>()) {};
-            ~ByteForgeApplication() = default;
+            virtual ~ByteForgeApplication() = default;
 
             ByteForgeApplication(const ByteForgeApplication &) = delete;
             ByteForgeApplication &operator=(const ByteForgeApplication &) = delete;
