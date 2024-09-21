@@ -22,9 +22,12 @@ namespace BFE::GameplayFoundations::ECS
 
             if(event.type == SDL_KEYDOWN)
             {
-                EInputKeys& inputKey = SDLKeyCodeMap[event.key.keysym.sym];
+                auto iterator = SDLKeyCodeMap.find(event.key.keysym.sym);
 
-                playerController.inputActions[inputKey]();
+                if(iterator != SDLKeyCodeMap.end()) 
+                {
+                    playerController.inputActions[iterator->second]();
+                }
             }
         }
     }

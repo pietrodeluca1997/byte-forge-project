@@ -6,6 +6,7 @@
 #include "gameplay_foundations/ecs/systems/render_system.hpp"
 #include "gameplay_foundations/ecs/systems/physics_system.hpp"
 #include "gameplay_foundations/ecs/systems/input_system.hpp"
+#include "gameplay_foundations/ecs/systems/collision_system.hpp"
 
 using namespace BFE::CoreSystems::Logging;
 using namespace BFE::Platform::Multimedia;
@@ -20,6 +21,10 @@ namespace BFE::CoreSystems::Application
         ecsRegistry->AddSystem<RenderSystem>();
         ecsRegistry->AddSystem<PhysicsSystem>();
         ecsRegistry->AddSystem<InputSystem>();
+        ecsRegistry->AddSystem<CollisionSystem>();
+
+        physicsSystem = ecsRegistry->GetSystem<PhysicsSystem>();
+        collisionSystem = ecsRegistry->GetSystem<CollisionSystem>();
 
         multimediaLayer->Initialize(ecsRegistry->GetSystem<RenderSystem>(), ecsRegistry->GetSystem<InputSystem>());
     }
@@ -30,7 +35,8 @@ namespace BFE::CoreSystems::Application
                 
         const double deltaTime = (multimediaLayer->GetFrametime() - previousFrameMilliseconds) / 1000.0;
 
-        ecsRegistry->GetSystem<PhysicsSystem>()->Update(deltaTime);
+        physicsSystem->Update(deltaTime);
+        collisionSystem->Update();
 
         previousFrameMilliseconds = multimediaLayer->GetFrametime();
     }

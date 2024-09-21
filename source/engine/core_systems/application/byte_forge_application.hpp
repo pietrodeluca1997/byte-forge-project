@@ -4,6 +4,8 @@
 
 #include "platform/multimedia/multimedia_layer.hpp"
 #include "gameplay_foundations/ecs/registries/ecs_registry.hpp"
+#include "gameplay_foundations/ecs/systems/collision_system.hpp"
+#include "gameplay_foundations/ecs/systems/physics_system.hpp"
 
 constexpr unsigned int FPS = 60;
 constexpr uint32_t MILLISECONDS_PER_FRAME = 1000 / FPS;
@@ -19,8 +21,11 @@ namespace BFE::CoreSystems::Application
 
             std::unique_ptr<BFE::GameplayFoundations::ECS::ECSRegistry> ecsRegistry;
 
+            std::shared_ptr<BFE::GameplayFoundations::ECS::PhysicsSystem> physicsSystem;
+            std::shared_ptr<BFE::GameplayFoundations::ECS::CollisionSystem> collisionSystem;
+
         public:
-            ByteForgeApplication() : multimediaLayer(std::make_unique<BFE::Platform::Multimedia::MultimediaLayer>()), ecsRegistry(std::make_unique<BFE::GameplayFoundations::ECS::ECSRegistry>()) {};
+            ByteForgeApplication() : multimediaLayer(std::make_unique<BFE::Platform::Multimedia::MultimediaLayer>()), ecsRegistry(std::make_unique<BFE::GameplayFoundations::ECS::ECSRegistry>()), physicsSystem(nullptr), collisionSystem(nullptr) {};
             virtual ~ByteForgeApplication() = default;
 
             ByteForgeApplication(const ByteForgeApplication &) = delete;
