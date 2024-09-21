@@ -1,0 +1,8 @@
+# Build files
+*.dll
+*.lib
+*.exe
+*.o
+
+# Libraries
+/libraries/*/
