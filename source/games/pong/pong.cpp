@@ -15,7 +15,7 @@ using namespace BFE::Platform::Multimedia::Input;
 using glm::vec2;
 
 constexpr vec2 DEFAULT_SCALE(1.0f, 1.0f);
-constexpr vec2 INITIAL_BALL_VELOCITY(300.0f, 0.0f);
+constexpr vec2 INITIAL_BALL_VELOCITY(1200.0f, 1200.0f);
 constexpr float BASE_PROPORTION(32.0f);
 constexpr float PLAYER_VELOCITY(300.0f);
 constexpr double DEFAULT_ANGLE_ROTATION(0.0f);
@@ -30,6 +30,9 @@ void Pong::CreateBall()
     ecsRegistry->AddComponent<SpriteComponent>(ball, vec2(BASE_PROPORTION, BASE_PROPORTION));
     ecsRegistry->AddComponent<Physics2DComponent>(ball, INITIAL_BALL_VELOCITY);
     ecsRegistry->AddComponent<BoxCollider2DComponent>(ball, vec2(BASE_PROPORTION, BASE_PROPORTION), vec2(0.0f, 0.0f));
+
+    BoxCollider2DComponent& boxCollider = ecsRegistry->GetComponent<BoxCollider2DComponent>(ball);
+    boxCollider.AddOnCollisionCallback(this, &Pong::OnBallCollision);
 }
 
 void Pong::CreatePlayer()
@@ -43,6 +46,9 @@ void Pong::CreatePlayer()
     ecsRegistry->AddComponent<Physics2DComponent>(player, vec2(0, 0));
     ecsRegistry->AddComponent<PlayerControllerComponent>(player);
     ecsRegistry->AddComponent<BoxCollider2DComponent>(player, vec2(BASE_PROPORTION, 128), vec2(0.0f, 0.0f));
+
+    BoxCollider2DComponent &playerCollider = ecsRegistry->GetComponent<BoxCollider2DComponent>(player);
+    playerCollider.AddOnCollisionCallback(this, &Pong::OnPlayerCollision);
 }
 
 void Pong::CreateWalls()
@@ -85,6 +91,30 @@ void Pong::SetupPlayerInput()
     PlayerControllerComponent& playerController = ecsRegistry->GetComponent<PlayerControllerComponent>(player);
     playerController.AddInputActionListener(EInputKeys::KEYBOARD_W, this, &Pong::MovePlayerUpward);
     playerController.AddInputActionListener(EInputKeys::KEYBOARD_S, this, &Pong::MovePlayerDownward);
+}
+
+void Pong::OnBallCollision(ECSEntity &collider)
+{
+    Physics2DComponent& ballPhysics = ecsRegistry->GetComponent<Physics2DComponent>(ball);
+
+    if (collider == rightWall || collider == player)
+    {
+        ballPhysics.velocity.x *= -1;
+    } 
+    else if (collider == topWall || collider == bottomWall) 
+    {
+        ballPhysics.velocity.y *= -1;
+    }
+}
+
+void Pong::OnPlayerCollision(ECSEntity &collider)
+{
+    Physics2DComponent &playerPhysics = ecsRegistry->GetComponent<Physics2DComponent>(player);
+
+    if (collider == topWall || collider == bottomWall)
+    {
+        playerPhysics.velocity.y *= -1;
+    }
 }
 
 void Pong::Initialize()

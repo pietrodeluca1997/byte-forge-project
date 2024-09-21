@@ -15,7 +15,9 @@ class Pong : public BFE::CoreSystems::Application::ByteForgeApplication
         void MovePlayerUpward();
         void MovePlayerDownward();
         void SetupPlayerInput();
-    
+        void OnBallCollision(BFE::GameplayFoundations::ECS::ECSEntity &collider);
+        void OnPlayerCollision(BFE::GameplayFoundations::ECS::ECSEntity &collider);
+
     public:
         Pong() = default;
         virtual ~Pong() override = default;

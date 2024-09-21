@@ -23,7 +23,7 @@ namespace BFE::GameplayFoundations::ECS
         for (auto i = entities.begin(); i != entities.end(); i++)
         {
             ECSEntity entityA = *i;
-            const BoxCollider2DComponent& entityACollider = ecsRegistryReference.GetComponent<BoxCollider2DComponent>(entityA);
+            BoxCollider2DComponent& entityACollider = ecsRegistryReference.GetComponent<BoxCollider2DComponent>(entityA);
             const Transform2DComponent &entityATransform = ecsRegistryReference.GetComponent<Transform2DComponent>(entityA);
 
             for (auto j = i; j != entities.end(); j++)
@@ -32,7 +32,7 @@ namespace BFE::GameplayFoundations::ECS
                 
                 if (entityA == entityB) continue;
 
-                const BoxCollider2DComponent &entityBCollider = ecsRegistryReference.GetComponent<BoxCollider2DComponent>(entityB);
+                BoxCollider2DComponent &entityBCollider = ecsRegistryReference.GetComponent<BoxCollider2DComponent>(entityB);
                 const Transform2DComponent &entityBTransform = ecsRegistryReference.GetComponent<Transform2DComponent>(entityB);
 
                 bool collided = CheckAABBCollision(
@@ -49,6 +49,9 @@ namespace BFE::GameplayFoundations::ECS
                 if(collided) 
                 {
                     Logger::Debug("Entity with id: " + std::to_string(entityA.GetId()) + " collided with entity with id: " + std::to_string(entityB.GetId()));
+
+                    entityACollider.OnCollisionDetected(entityB);
+                    entityBCollider.OnCollisionDetected(entityA);
                 }
             }
         }
