@@ -23,8 +23,7 @@ LIBRARY_DIRECTORIES = \
 LIBRARIES = \
     -lSDL2 \
     -lSDL2main \
-    -lSDL2_image \
-    -llua54
+    -lSDL2_image
 
 # Source file directories
 SOURCE_DIRECTORIES = \
