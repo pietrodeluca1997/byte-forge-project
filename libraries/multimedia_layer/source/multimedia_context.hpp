@@ -2,6 +2,8 @@
 
 #include <SDL2/SDL.h>
 
+#include "gui_layer.hpp"
+
 namespace BFE::Multimedia
 {
     class MultimediaContext
@@ -25,7 +27,10 @@ namespace BFE::Multimedia
             const int GetWindowWidth() const { return windowWidth; }
             const int GetWindowHeight() const { return windowHeight; }
 
-            void ProcessInput();
-            void Render();
+            ::SDL_Window* GetWindow() const { return window; }
+            ::SDL_Renderer* GetRenderer() const { return renderer; }
+
+            void ProcessInput(const GUI::GUIContext* guiContext);
+            void Render(const GUI::GUIContext *guiContext);
     };
 }

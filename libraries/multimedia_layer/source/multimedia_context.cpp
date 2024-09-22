@@ -48,12 +48,14 @@ namespace BFE::Multimedia
         return renderer != nullptr;
     }
 
-    void MultimediaContext::ProcessInput()
+    void MultimediaContext::ProcessInput(const GUI::GUIContext *guiContext)
     {
         SDL_Event sdlEvent;
 
         while (SDL_PollEvent(&sdlEvent))
         {
+            ImGui_ImplSDL2_ProcessEvent(&sdlEvent);
+
             switch (sdlEvent.type)
             {
             case SDL_QUIT:
@@ -70,11 +72,13 @@ namespace BFE::Multimedia
         }
     }
 
-    void MultimediaContext::Render()
+    void MultimediaContext::Render(const GUI::GUIContext *guiContext)
     {
         SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
         SDL_RenderClear(renderer);
-        
+
+        ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), renderer);
+
         SDL_RenderPresent(renderer);
     }
 }

@@ -10,11 +10,15 @@ OUTPUT_DIRECTORY = ../dist/editor/
 # Include directories
 INCLUDE_DIRECTORIES = \
     -ISDL2/include \
-    -I../libraries/multimedia_layer/include/
+    -I../libraries/multimedia_layer/include/ \
+    -I../libraries/gui_layer/include/ \
+    -I../vendor/
 
 # Source directories
 SOURCE_DIRECTORIES = $(wildcard *.cpp) \
-	$(wildcard ../libraries/multimedia_layer/source/*.cpp)
+	$(wildcard ../libraries/multimedia_layer/source/*.cpp) \
+    $(wildcard ../libraries/gui_layer/source/*.cpp) \
+    $(wildcard ../vendor/imgui/*.cpp)
 
 FILE_OBJECTS = $(patsubst %.cpp, %.o, $(SOURCE_DIRECTORIES))
 

@@ -5,7 +5,9 @@
             "includePath": [
                 "${default}",
                 "C:\\msys64\\mingw64\\include",
-                "${workspaceFolder}\\libraries\\multimedia_layer\\include\\"
+                "${workspaceFolder}\\libraries\\multimedia_layer\\include\\",
+                "${workspaceFolder}\\libraries\\gui_layer\\include",
+                "${workspaceFolder}\\vendor\\"
             ],
             "defines": [
                 "_DEBUG",

@@ -3,3 +3,6 @@
 *.lib
 *.exe
 *.o
+
+# Build folder
+dist/editor/*
