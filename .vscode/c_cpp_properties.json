@@ -4,10 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${default}",
-                "C:\\msys64\\mingw64\\include",
-                "${workspaceFolder}/libraries",
-                "${workspaceFolder}/layers/multimedia_layer",
-                "${workspaceFolder}/libraries/imgui"
+                "C:\\msys64\\mingw64\\include"
             ],
             "defines": [
                 "_DEBUG",
