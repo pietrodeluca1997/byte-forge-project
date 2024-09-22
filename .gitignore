@@ -3,6 +3,3 @@
 *.lib
 *.exe
 *.o
-
-# Libraries
-/libraries/*/
