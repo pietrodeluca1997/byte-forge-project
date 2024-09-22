@@ -76,5 +76,8 @@
         "string_view": "cpp",
         "text_encoding": "cpp",
         "cinttypes": "cpp"
-    }
+    },
+    "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+        "clang-diagnostic-error"
+    ]
 }

@@ -1,0 +1,80 @@
+#include "multimedia_context.hpp"
+
+#include <cassert>
+
+namespace BFE::Multimedia
+{
+    MultimediaContext::MultimediaContext() : isExitRequested(false)
+    {
+        assert(Initialize() && CreateFullscreenWindow() && CreateRenderer());
+    }
+
+    MultimediaContext::~MultimediaContext()
+    {
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }
+
+    bool MultimediaContext::Initialize()
+    {
+        return SDL_Init(SDL_INIT_VIDEO) == 0;
+    }
+
+    bool MultimediaContext::CreateFullscreenWindow()
+    {
+        SDL_DisplayMode displayMode;
+        SDL_GetCurrentDisplayMode(0, &displayMode);
+
+        windowWidth = displayMode.w;
+        windowHeight = displayMode.h;        
+
+        window = SDL_CreateWindow(
+            NULL,
+            SDL_WINDOWPOS_CENTERED,
+            SDL_WINDOWPOS_CENTERED,
+            displayMode.w,
+            displayMode.h,
+            SDL_WINDOW_BORDERLESS
+        );
+
+        return window != nullptr;
+    }
+
+    bool MultimediaContext::CreateRenderer()
+    {
+        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+        return renderer != nullptr;
+    }
+
+    void MultimediaContext::ProcessInput()
+    {
+        SDL_Event sdlEvent;
+
+        while (SDL_PollEvent(&sdlEvent))
+        {
+            switch (sdlEvent.type)
+            {
+            case SDL_QUIT:
+                isExitRequested = true;
+                break;
+
+            case SDL_KEYDOWN:
+                if (sdlEvent.key.keysym.sym == SDLK_ESCAPE)
+                {
+                    isExitRequested = true;
+                }
+                break;
+            }
+        }
+    }
+
+    void MultimediaContext::Render()
+    {
+        SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
+        SDL_RenderClear(renderer);
+        
+        SDL_RenderPresent(renderer);
+    }
+}
