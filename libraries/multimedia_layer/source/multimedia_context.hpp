@@ -2,6 +2,8 @@
 
 #include <SDL2/SDL.h>
 
+#include <string>
+
 #include "gui_layer.hpp"
 
 namespace BFE::Multimedia
@@ -9,6 +11,7 @@ namespace BFE::Multimedia
     class MultimediaContext
     {
         private:
+            std::string windowTitle;
             size_t windowWidth, windowHeight;
             bool isExitRequested;
 
@@ -19,7 +22,7 @@ namespace BFE::Multimedia
             bool CreateFullscreenWindow();
             bool CreateRenderer();
         public:
-            MultimediaContext();
+            MultimediaContext(std::string windowTitle);
             ~MultimediaContext();
 
             const bool IsExitRequested() const { return isExitRequested; }
@@ -31,6 +34,6 @@ namespace BFE::Multimedia
             ::SDL_Renderer* GetRenderer() const { return renderer; }
 
             void ProcessInput(const GUI::GUIContext* guiContext);
-            void Render(const GUI::GUIContext *guiContext);
+            void Render();
     };
 }

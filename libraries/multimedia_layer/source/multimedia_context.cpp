@@ -4,7 +4,7 @@
 
 namespace BFE::Multimedia
 {
-    MultimediaContext::MultimediaContext() : isExitRequested(false)
+    MultimediaContext::MultimediaContext(std::string windowTitle) : windowTitle(windowTitle), isExitRequested(false)
     {
         assert(Initialize() && CreateFullscreenWindow() && CreateRenderer());
     }
@@ -27,15 +27,18 @@ namespace BFE::Multimedia
         SDL_GetCurrentDisplayMode(0, &displayMode);
 
         windowWidth = displayMode.w;
-        windowHeight = displayMode.h;        
+        windowHeight = displayMode.h;
 
         window = SDL_CreateWindow(
-            NULL,
+            windowTitle.c_str(),
             SDL_WINDOWPOS_CENTERED,
             SDL_WINDOWPOS_CENTERED,
             displayMode.w,
             displayMode.h,
-            SDL_WINDOW_BORDERLESS
+            SDL_WINDOW_SHOWN |
+            SDL_WINDOW_RESIZABLE |
+            SDL_WINDOW_ALLOW_HIGHDPI |
+            SDL_WINDOW_MAXIMIZED
         );
 
         return window != nullptr;
@@ -58,22 +61,22 @@ namespace BFE::Multimedia
 
             switch (sdlEvent.type)
             {
-            case SDL_QUIT:
-                isExitRequested = true;
-                break;
-
-            case SDL_KEYDOWN:
-                if (sdlEvent.key.keysym.sym == SDLK_ESCAPE)
-                {
+                case SDL_QUIT:
                     isExitRequested = true;
-                }
-                break;
+                    break;
+
+                case SDL_KEYDOWN:
+                    if (sdlEvent.key.keysym.sym == SDLK_ESCAPE)
+                    {
+                        isExitRequested = true;
+                    }
+                    break;
             }
         }
     }
 
-    void MultimediaContext::Render(const GUI::GUIContext *guiContext)
-    {
+    void MultimediaContext::Render()
+    {            
         SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
         SDL_RenderClear(renderer);
 

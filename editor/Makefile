@@ -2,7 +2,7 @@
 CXX = g++
 
 # Flags
-CXXFLAGS = -Wall -std=c++17 -g -DWIN32
+CXXFLAGS = -Wall -std=c++17 -g -DWIN32 -O2
 
 # Output directory
 OUTPUT_DIRECTORY = ../dist/editor/
@@ -20,6 +20,7 @@ SOURCE_DIRECTORIES = $(wildcard *.cpp) \
     $(wildcard ../libraries/gui_layer/source/*.cpp) \
     $(wildcard ../vendor/imgui/*.cpp)
 
+# Object files
 FILE_OBJECTS = $(patsubst %.cpp, %.o, $(SOURCE_DIRECTORIES))
 
 # Libraries to link
@@ -31,8 +32,8 @@ LIBRARIES = \
 TARGET = ByteForgeEditor.exe
 
 # Build
-build:
-	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRECTORIES) $(SOURCE_DIRECTORIES) $(LIBRARIES) -o $(OUTPUT_DIRECTORY)$(TARGET)
+build: $(FILE_OBJECTS)
+	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRECTORIES) $(FILE_OBJECTS)  $(LIBRARIES) -o $(OUTPUT_DIRECTORY)$(TARGET)
 
 %.o: %.cpp	
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRECTORIES) -c $< -o $@

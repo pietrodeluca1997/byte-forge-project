@@ -75,6 +75,10 @@
         "memory_resource": "cpp",
         "string_view": "cpp",
         "text_encoding": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "bitset": "cpp",
+        "iomanip": "cpp",
+        "source_location": "cpp",
+        "typeindex": "cpp"
     }
 }

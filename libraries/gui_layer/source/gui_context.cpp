@@ -7,12 +7,16 @@ namespace BFE::GUI
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGuiIO &io = ImGui::GetIO(); (void)io;
+
+        ImGui::StyleColorsDark();
+
         ImGui_ImplSDL2_InitForSDLRenderer(sdlWindow, sdlRenderer);
         ImGui_ImplSDLRenderer2_Init(sdlRenderer);
     }
 
     GUIContext::~GUIContext()
     {
+        ImGui_ImplSDLRenderer2_Shutdown();
         ImGui_ImplSDL2_Shutdown();
         ImGui::DestroyContext();
     }
