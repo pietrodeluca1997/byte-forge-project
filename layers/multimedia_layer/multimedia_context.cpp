@@ -1,12 +1,12 @@
 #include "multimedia_context.hpp"
 
+#include <cassert>
+
 namespace BFE::MultimediaLayer
 {
     MultimediaContext::MultimediaContext() : isApplicationExitRequested(false)
     {
-        InitializeSDL();
-        CreateFullScreenWindow();
-        CreateWindowRenderer();
+        assert(InitializeSDL() && CreateFullScreenWindow() && CreateWindowRenderer());
     }
 
     MultimediaContext::~MultimediaContext()
