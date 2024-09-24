@@ -1,3 +1,5 @@
+# Editor Makefile
+
 # Compiler
 CXX = g++
 
@@ -10,12 +12,14 @@ OUTPUT_DIRECTORY = ../dist/editor/
 # Include directories
 INCLUDE_DIRECTORIES = \
     -ISDL2/include \
+    -I../libraries/UI/ \
     -I../libraries/multimedia_layer/include/ \
     -I../libraries/gui_layer/include/ \
     -I../vendor/
 
 # Source directories
 SOURCE_DIRECTORIES = $(wildcard *.cpp) \
+    $(wildcard ./UI/views/*.cpp) \
 	$(wildcard ../libraries/multimedia_layer/source/*.cpp) \
     $(wildcard ../libraries/gui_layer/source/*.cpp) \
     $(wildcard ../vendor/imgui/*.cpp)

@@ -10,10 +10,14 @@ namespace BFE::GUI
 {
     class GUIContext
     {
+        private:
+            static bool contextInitialized;
+            
         public:
-            GUIContext(::SDL_Window* sdlWindow, ::SDL_Renderer* sdlRenderer);
+            GUIContext() = default;
             ~GUIContext();
 
-            void CreateRenderFrame();
+            static void InitializeGlobalContext();
+            static void CreateRenderFrame();
     };
 }

@@ -2,16 +2,20 @@
 
 namespace BFE::GUI
 {
-    GUIContext::GUIContext(::SDL_Window* sdlWindow, ::SDL_Renderer* sdlRenderer)
+    bool GUIContext::contextInitialized = false;
+
+    void GUIContext::InitializeGlobalContext()
     {
-        IMGUI_CHECKVERSION();
-        ImGui::CreateContext();
-        ImGuiIO &io = ImGui::GetIO(); (void)io;
+        if(!contextInitialized)
+        {
+            contextInitialized = true;
+            
+            IMGUI_CHECKVERSION();
+            ImGui::CreateContext();
+            ImGui::GetIO();
 
-        ImGui::StyleColorsDark();
-
-        ImGui_ImplSDL2_InitForSDLRenderer(sdlWindow, sdlRenderer);
-        ImGui_ImplSDLRenderer2_Init(sdlRenderer);
+            ImGui::StyleColorsDark();
+        }
     }
 
     GUIContext::~GUIContext()

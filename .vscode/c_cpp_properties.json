@@ -4,10 +4,12 @@
             "name": "Win32",
             "includePath": [
                 "${default}",
-                "C:\\msys64\\mingw64\\include",
-                "${workspaceFolder}\\libraries\\multimedia_layer\\include\\",
-                "${workspaceFolder}\\libraries\\gui_layer\\include",
-                "${workspaceFolder}\\vendor\\"
+                "${workspaceFolder}/editor/UI/",
+                "${workspaceFolder}/libraries/multimedia_layer/include/",
+                "${workspaceFolder}/libraries/gui_layer/include/",
+                "${workspaceFolder}/vendor/",
+                "C:/msys64/mingw64/include/c++/14.2.0/",
+                "C:/msys64/mingw64/include/"
             ],
             "defines": [
                 "_DEBUG",
@@ -15,10 +17,10 @@
                 "_UNICODE"
             ],
             "windowsSdkVersion": "10.0.22621.0",
-            "compilerPath": "cl.exe",
+            "compilerPath": "C:/msys64/mingw64/bin/g++.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "windows-msvc-x64"
+            "intelliSenseMode": "gcc-x64"
         }
     ],
     "version": 4

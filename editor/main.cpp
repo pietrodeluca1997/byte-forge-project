@@ -5,24 +5,23 @@
 #include "multimedia_layer.hpp"
 #include "gui_layer.hpp"
 
+#include "UI/views/project_browser_view.hpp"
+
 int main(const int argc, const char* argv[])
 {
-    BFE::Multimedia::MultimediaContext multimediaContext = {"ByteForge Engine Editor"};
-    BFE::GUI::GUIContext guiContext(multimediaContext.GetWindow(), multimediaContext.GetRenderer());
+    BFE::GUI::GUIContext::InitializeGlobalContext();
+
+    BFE::Multimedia::MultimediaContext multimediaContext;
+
+    BFE::UI::Views::ProjectBrowserView projectBrowserView(multimediaContext);
 
     while (!multimediaContext.IsExitRequested())
     {
-        multimediaContext.ProcessInput(&guiContext);
+        multimediaContext.ProcessInput();
 
-        guiContext.CreateRenderFrame();
+        projectBrowserView.Render();
 
-        ImGui::Begin("Hello, World!");
-
-        ImGui::End();
-
-        ImGui::Render();
-
-        multimediaContext.Render();
+        multimediaContext.ProcessRender();
     }
 
     return EXIT_SUCCESS;

@@ -2,56 +2,64 @@
 
 #include <cassert>
 
+#include <imgui/imgui_impl_sdl2.h>
+#include <imgui/imgui_impl_sdlrenderer2.h>
+
 namespace BFE::Multimedia
 {
-    MultimediaContext::MultimediaContext(std::string windowTitle) : windowTitle(windowTitle), isExitRequested(false)
+    MultimediaContext::MultimediaContext() : isExitRequested(false)
     {
-        assert(Initialize() && CreateFullscreenWindow() && CreateRenderer());
+        assert(Initialize());
     }
 
     MultimediaContext::~MultimediaContext()
     {
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        SDL_Quit();
+        Shutdown();
     }
 
     bool MultimediaContext::Initialize()
     {
-        return SDL_Init(SDL_INIT_VIDEO) == 0;
+        return SDL_Init(SDL_INIT_EVERYTHING) == 0;
     }
 
-    bool MultimediaContext::CreateFullscreenWindow()
+    void MultimediaContext::Shutdown()
     {
-        SDL_DisplayMode displayMode;
-        SDL_GetCurrentDisplayMode(0, &displayMode);
+        SDL_Quit();
+    }
 
-        windowWidth = displayMode.w;
-        windowHeight = displayMode.h;
-
-        window = SDL_CreateWindow(
-            windowTitle.c_str(),
-            SDL_WINDOWPOS_CENTERED,
-            SDL_WINDOWPOS_CENTERED,
-            displayMode.w,
-            displayMode.h,
-            SDL_WINDOW_SHOWN |
-            SDL_WINDOW_RESIZABLE |
-            SDL_WINDOW_ALLOW_HIGHDPI |
-            SDL_WINDOW_MAXIMIZED
+    bool MultimediaContext::CreateApplicationWindowWithRenderer(const ApplicationWindowData& applicationWindowData)
+    {
+        SDL_Window* sdlWindow = SDL_CreateWindow(
+            applicationWindowData.title,
+            applicationWindowData.xCoordinate,
+            applicationWindowData.yCoordinate,
+            applicationWindowData.width,
+            applicationWindowData.height,
+            applicationWindowData.flags
         );
 
-        return window != nullptr;
+        if (!sdlWindow) return false;
+
+        SDL_Renderer* sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+        if (!sdlRenderer) 
+        {
+            SDL_DestroyWindow(sdlWindow);
+            return false;
+        }
+
+        if(applicationWindowSDLResources.empty())
+        {
+            ImGui_ImplSDL2_InitForSDLRenderer(sdlWindow, sdlRenderer);
+            ImGui_ImplSDLRenderer2_Init(sdlRenderer);
+        }
+
+        applicationWindowSDLResources.emplace_back(sdlWindow, sdlRenderer);
+
+        return true;
     }
 
-    bool MultimediaContext::CreateRenderer()
-    {
-        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
-        return renderer != nullptr;
-    }
-
-    void MultimediaContext::ProcessInput(const GUI::GUIContext *guiContext)
+    void MultimediaContext::ProcessInput()
     {
         SDL_Event sdlEvent;
 
@@ -64,24 +72,22 @@ namespace BFE::Multimedia
                 case SDL_QUIT:
                     isExitRequested = true;
                     break;
-
-                case SDL_KEYDOWN:
-                    if (sdlEvent.key.keysym.sym == SDLK_ESCAPE)
-                    {
-                        isExitRequested = true;
-                    }
+                default:
                     break;
             }
         }
     }
 
-    void MultimediaContext::Render()
-    {            
-        SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
-        SDL_RenderClear(renderer);
+    void MultimediaContext::ProcessRender()
+    {
+        for (ApplicationWindowSDLResourceData& applicationWindowSDLResource : applicationWindowSDLResources)
+        {
+            SDL_SetRenderDrawColor(applicationWindowSDLResource.sdlRenderer, 21, 21, 21, 255);
+            SDL_RenderClear(applicationWindowSDLResource.sdlRenderer);
 
-        ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), renderer);
+            ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), applicationWindowSDLResource.sdlRenderer);
 
-        SDL_RenderPresent(renderer);
+            SDL_RenderPresent(applicationWindowSDLResource.sdlRenderer);
+        }
     }
 }

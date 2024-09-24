@@ -2,38 +2,32 @@
 
 #include <SDL2/SDL.h>
 
-#include <string>
+#include <vector>
 
-#include "gui_layer.hpp"
+#include "data/application_window_data.hpp"
+#include "data/window_sdl_resources_data.hpp"
 
 namespace BFE::Multimedia
 {
     class MultimediaContext
     {
         private:
-            std::string windowTitle;
-            size_t windowWidth, windowHeight;
+            std::vector<ApplicationWindowData> applicationWindows;
+            std::vector<ApplicationWindowSDLResourceData> applicationWindowSDLResources;
+
             bool isExitRequested;
 
-            ::SDL_Window* window;
-            ::SDL_Renderer* renderer;
-
             bool Initialize();
-            bool CreateFullscreenWindow();
-            bool CreateRenderer();
+            void Shutdown();
         public:
-            MultimediaContext(std::string windowTitle);
+            MultimediaContext();
             ~MultimediaContext();
 
             const bool IsExitRequested() const { return isExitRequested; }
 
-            const int GetWindowWidth() const { return windowWidth; }
-            const int GetWindowHeight() const { return windowHeight; }
+            bool CreateApplicationWindowWithRenderer(const ApplicationWindowData& applicationWindowData);
 
-            ::SDL_Window* GetWindow() const { return window; }
-            ::SDL_Renderer* GetRenderer() const { return renderer; }
-
-            void ProcessInput(const GUI::GUIContext* guiContext);
-            void Render();
+            void ProcessInput();
+            void ProcessRender();
     };
 }
