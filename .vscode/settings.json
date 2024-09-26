@@ -80,6 +80,9 @@
         "iomanip": "cpp",
         "source_location": "cpp",
         "typeindex": "cpp",
-        "cassert": "cpp"
+        "cassert": "cpp",
+        "iostream": "cpp",
+        "chrono": "cpp",
+        "ratio": "cpp"
     }
 }

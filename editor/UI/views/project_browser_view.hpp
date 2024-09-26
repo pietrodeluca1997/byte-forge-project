@@ -2,19 +2,24 @@
 
 #include "multimedia_layer.hpp"
 #include "gui_layer.hpp"
+#include "view.hpp"
 
 namespace BFE::UI::Views
 {
-    class ProjectBrowserView 
+    class ProjectBrowserView : public IView
     {
-        private:
-            BFE::Multimedia::ApplicationWindowData windowData;
-            BFE::Multimedia::ApplicationWindowSDLResourceData windowSDLResources;
-
         public:
-            ProjectBrowserView(BFE::Multimedia::MultimediaContext& multimediaContext);
-            ~ProjectBrowserView() = default;
+            ProjectBrowserView(Multimedia::MultimediaRegistry& multimediaRegistry) : IView(multimediaRegistry, Multimedia::ApplicationWindowData(
+                "ByteForge Project Browser",
+                800,
+                600,
+                SDL_WINDOWPOS_CENTERED,
+                SDL_WINDOWPOS_CENTERED,
+                SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_SHOWN
+            )) {}
+            
+            virtual ~ProjectBrowserView() = default;
 
-            void Render();
+            virtual void PreRender() override;
     };
 }

@@ -10,12 +10,19 @@ namespace BFE::GUI
     {
         private:
             static bool contextInitialized;
+
+            static void SetupStyle();
             
         public:
             GUIContext() = default;
-            ~GUIContext();
+            ~GUIContext() = default;
 
             static void InitializeGlobalContext();
+            static bool InitializeSDL2Backend(::SDL_Window *sdlWindow, ::SDL_Renderer *sdlRenderer);
             static void CreateRenderFrame();
+            static void ProcessSDLInput(const ::SDL_Event* sdlEvent);
+            static void RenderDrawData(::SDL_Renderer* sdlRenderer);
+
+            static void Shutdown();
     };
 }

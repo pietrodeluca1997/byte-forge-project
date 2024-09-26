@@ -15,13 +15,18 @@ INCLUDE_DIRECTORIES = \
     -I../libraries/UI/ \
     -I../libraries/multimedia_layer/include/ \
     -I../libraries/gui_layer/include/ \
+    -I../libraries/logging/include/ \
     -I../vendor/
 
 # Source directories
 SOURCE_DIRECTORIES = $(wildcard *.cpp) \
     $(wildcard ./UI/views/*.cpp) \
-	$(wildcard ../libraries/multimedia_layer/source/*.cpp) \
+	$(wildcard ../libraries/multimedia_layer/source/context/*.cpp) \
+    $(wildcard ../libraries/multimedia_layer/source/data_structures/*.cpp) \
+    $(wildcard ../libraries/multimedia_layer/source/registry/*.cpp) \
     $(wildcard ../libraries/gui_layer/source/*.cpp) \
+    $(wildcard ../libraries/logging/source/logger/*.cpp) \
+    $(wildcard ../libraries/logging/source/enums/*.cpp) \
     $(wildcard ../vendor/imgui/*.cpp)
 
 # Object files
@@ -37,7 +42,7 @@ TARGET = ByteForgeEditor.exe
 
 # Build
 build: $(FILE_OBJECTS)
-	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRECTORIES) $(FILE_OBJECTS)  $(LIBRARIES) -o $(OUTPUT_DIRECTORY)$(TARGET)
+	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRECTORIES) $(FILE_OBJECTS) $(LIBRARIES) -o $(OUTPUT_DIRECTORY)$(TARGET)
 
 %.o: %.cpp	
 	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRECTORIES) -c $< -o $@
